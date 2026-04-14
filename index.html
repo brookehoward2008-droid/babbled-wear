@@ -126,11 +126,11 @@ nav a:hover { opacity: 1; }
 .hero-art {
   display: block;
   width: 100%;
-  max-width: 420px;
+  max-width: 480px;
   height: auto;
   margin-top: 32px;
-  filter: drop-shadow(0 20px 40px rgba(255,45,135,0.3)) drop-shadow(0 0 60px rgba(123,44,191,0.4));
-  mix-blend-mode: screen;
+  border-radius: 12px;
+  box-shadow: 0 20px 60px rgba(255,45,135,0.25), 0 0 80px rgba(123,44,191,0.3);
 }
 .gallery-grid {
   display: grid;
@@ -183,14 +183,25 @@ footer a { color: var(--paper); }
   <section class="hero">
     <span class="est">est. 2025</span>
     <h1>where ink<br>speaks.</h1>
-    <p class="tag">Original art by Brooke Chauntel. Prints, apparel, and digital downloads.</p>
-    <img src="img/moth.png" alt="BaBBled moth - surreal ink illustration" class="hero-art">
+    <p class="tag">Photography and original art by Brooke Chauntel. Prints, apparel, collectibles, and digital downloads.</p>
+    <img src="img/photography/series-1.jpg" alt="Bookstore mannequin with teacup - photography by Brooke Chauntel" class="hero-art">
+  </section>
+
+  <section id="photography">
+    <h2 style="font-size:14px;letter-spacing:0.3em;text-transform:uppercase;opacity:0.6;margin-bottom:8px;">Photography &middot; minted on Zora</h2>
+    <p style="font-size:13px;opacity:0.6;margin-bottom:16px;">Vintage dolls, mannequins, and the haunted in-between. Each piece is collectible on Zora.</p>
+    <div class="gallery-grid">
+      <a class="piece" href="https://zora.co/@babbled1977" target="_blank" rel="noopener"><img src="img/photography/series-1.jpg" alt="Bookstore mannequin with teacup" loading="lazy"></a>
+      <a class="piece" href="https://zora.co/@babbled1977" target="_blank" rel="noopener"><img src="img/photography/series-2.jpg" alt="Vintage doll grouping" loading="lazy"></a>
+      <a class="piece" href="https://zora.co/@babbled1977" target="_blank" rel="noopener"><img src="img/photography/series-3.jpg" alt="Bonnet doll trio" loading="lazy"></a>
+      <a class="piece" href="https://zora.co/@babbled1977" target="_blank" rel="noopener"><img src="img/photography/series-4.jpg" alt="Doll display case" loading="lazy"></a>
+      <a class="piece" href="https://zora.co/@babbled1977" target="_blank" rel="noopener"><img src="img/photography/series-5.jpg" alt="Vintage celebrity figurines" loading="lazy"></a>
+    </div>
   </section>
 
   <section id="gallery">
     <h2 style="font-size:14px;letter-spacing:0.3em;text-transform:uppercase;opacity:0.6;margin-bottom:16px;">Selected work</h2>
     <div class="gallery-grid">
-      <div class="piece"><img src="img/moth.png" alt="Surreal haunting moth" loading="lazy"></div>
       <div class="piece"><img src="img/gallery/geisha-gumwall-popart.png" alt="Gum wall geisha, pop art" loading="lazy"></div>
       <div class="piece"><img src="img/gallery/geisha-gumwall-surreal.png" alt="Gum wall geisha, surrealism" loading="lazy"></div>
       <div class="piece"><img src="img/gallery/geisha-gumwall-watercolor.png" alt="Gum wall geisha, watercolor" loading="lazy"></div>
@@ -261,8 +272,8 @@ footer a { color: var(--paper); }
     <h2 style="font-size:14px;letter-spacing:0.3em;text-transform:uppercase;opacity:0.6;margin-bottom:16px;">About</h2>
     <p style="max-width:640px;line-height:1.7;opacity:0.85;">
       BaBBled is Brooke Chauntel's art studio. Surreal, loud, a little haunted.
-      Every design starts as an idea, sketched or generated, then refined by hand.
-      Based in Washington, shipping wherever you are.
+      Photography of vintage dolls, mannequins, and the in-between, alongside
+      original illustration and design. Based in Washington, shipping wherever you are.
     </p>
   </section>
 
