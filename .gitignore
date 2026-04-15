@@ -1,0 +1,6 @@
+# Private notes — never commit
+wallets-private.txt
+*.private.txt
+*.private.md
+.env
+.env.*
