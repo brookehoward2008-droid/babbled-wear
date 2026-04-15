@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Status &middot; BaBBled</title>
+<meta name="description" content="Live status of the BaBBled shop integrations.">
+<link rel="icon" href="favicon.ico">
+<style>
+:root {
+  --pink: #ff2d87;
+  --purple: #7b2cbf;
+  --yellow: #ffd60a;
+  --ink: #0f0f14;
+  --paper: #fafafa;
+  --green: #2ecc71;
+  --red: #ff3b3b;
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html, body { height: 100%; }
+body {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Inter, system-ui, sans-serif;
+  background: var(--ink);
+  color: var(--paper);
+  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+}
+.bg {
+  position: fixed; inset: 0; z-index: -1;
+  background:
+    radial-gradient(circle at 20% 10%, rgba(255,45,135,0.35), transparent 40%),
+    radial-gradient(circle at 80% 60%, rgba(123,44,191,0.45), transparent 50%),
+    radial-gradient(circle at 50% 90%, rgba(255,214,10,0.15), transparent 40%),
+    var(--ink);
+}
+.wrap {
+  max-width: 960px;
+  margin: 0 auto;
+  padding: 48px 24px 96px;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  gap: 48px;
+}
+header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+.logo {
+  font-weight: 900;
+  font-size: 22px;
+  letter-spacing: -0.02em;
+}
+.logo .b1 { color: var(--pink); }
+nav a {
+  color: var(--paper);
+  text-decoration: none;
+  margin-left: 20px;
+  font-size: 14px;
+  opacity: 0.8;
+  transition: opacity 0.2s;
+}
+nav a:hover { opacity: 1; }
+.hero h1 {
+  font-size: clamp(40px, 8vw, 88px);
+  font-weight: 900;
+  line-height: 0.95;
+  letter-spacing: -0.04em;
+  background: linear-gradient(135deg, var(--pink), var(--purple) 60%, var(--yellow));
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  margin-bottom: 24px;
+}
+.hero p.tag {
+  font-size: clamp(16px, 2vw, 20px);
+  max-width: 640px;
+  opacity: 0.85;
+  line-height: 1.5;
+}
+.est {
+  display: inline-block;
+  font-size: 12px;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: var(--yellow);
+  margin-bottom: 16px;
+}
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 16px;
+}
+.card {
+  background: rgba(255,255,255,0.04);
+  border: 1px solid rgba(255,255,255,0.08);
+  border-radius: 16px;
+  padding: 24px;
+  text-decoration: none;
+  color: var(--paper);
+  display: block;
+}
+.card h3 { font-size: 18px; margin-bottom: 8px; }
+.card p { font-size: 14px; opacity: 0.7; line-height: 1.5; }
+.card .pill {
+  display: inline-block;
+  font-size: 11px;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--yellow);
+  margin-bottom: 10px;
+}
+.status-row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin: 14px 0 10px;
+  flex-wrap: wrap;
+}
+.status-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 12px;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  padding: 6px 12px;
+  border-radius: 999px;
+  border: 1px solid rgba(255,255,255,0.12);
+  background: rgba(255,255,255,0.04);
+}
+.status-pill::before {
+  content: "";
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: rgba(255,255,255,0.4);
+}
+.status-pill.checking { color: var(--yellow); }
+.status-pill.checking::before { background: var(--yellow); animation: pulse 1.2s ease-in-out infinite; }
+.status-pill.online { color: var(--green); }
+.status-pill.online::before { background: var(--green); box-shadow: 0 0 8px var(--green); }
+.status-pill.down { color: var(--red); }
+.status-pill.down::before { background: var(--red); }
+@keyframes pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.3; }
+}
+.meta {
+  font-size: 12px;
+  opacity: 0.6;
+  margin-top: 6px;
+}
+.card-actions {
+  display: flex;
+  gap: 10px;
+  margin-top: 16px;
+  flex-wrap: wrap;
+}
+.btn {
+  display: inline-block;
+  font-size: 13px;
+  font-weight: 600;
+  padding: 8px 14px;
+  border-radius: 10px;
+  border: 1px solid rgba(255,255,255,0.12);
+  background: rgba(255,255,255,0.04);
+  color: var(--paper);
+  text-decoration: none;
+  cursor: pointer;
+  transition: transform 0.15s, border-color 0.2s, background 0.2s;
+  font-family: inherit;
+}
+.btn:hover {
+  transform: translateY(-2px);
+  border-color: var(--pink);
+  background: rgba(255,45,135,0.08);
+}
+.btn.primary {
+  border-color: var(--pink);
+  background: rgba(255,45,135,0.12);
+}
+.note {
+  font-size: 12px;
+  opacity: 0.55;
+  line-height: 1.6;
+  max-width: 640px;
+}
+footer {
+  margin-top: auto;
+  font-size: 12px;
+  opacity: 0.5;
+  text-align: center;
+  padding-top: 32px;
+  border-top: 1px solid rgba(255,255,255,0.08);
+}
+footer a { color: var(--paper); }
+</style>
+</head>
+<body>
+<div class="bg"></div>
+<div class="wrap">
+  <header>
+    <div class="logo">Ba<span class="b1">BB</span>led</div>
+    <nav>
+      <a href="index.html">Home</a>
+      <a href="index.html#shop">Shop</a>
+      <a href="mailto:babbledllc@gmail.com">Contact</a>
+    </nav>
+  </header>
+
+  <section class="hero">
+    <span class="est">shop status</span>
+    <h1>is it up?</h1>
+    <p class="tag">Live reachability checks for the BaBBled storefronts. Runs in your browser &mdash; no servers, no tracking.</p>
+  </section>
+
+  <section id="statuses">
+    <div class="grid">
+      <div class="card" data-shop="gumroad" data-url="https://babbler53.gumroad.com/">
+        <span class="pill">Digital downloads</span>
+        <h3>Gumroad</h3>
+        <p>High-res digital prints and wallpaper files.</p>
+        <div class="status-row">
+          <span class="status-pill checking" data-role="pill">Checking&hellip;</span>
+          <span class="meta" data-role="latency"></span>
+        </div>
+        <div class="meta" data-role="timestamp">Last checked: &mdash;</div>
+        <div class="card-actions">
+          <a class="btn primary" href="https://babbler53.gumroad.com/" target="_blank" rel="noopener">Visit shop &rarr;</a>
+          <button class="btn" type="button" data-role="recheck">Re-check</button>
+        </div>
+      </div>
+    </div>
+
+    <p class="note" style="margin-top:24px;">
+      Note: reachability is measured with an opaque cross-origin request from your browser,
+      so a green pill means the storefront domain responded &mdash; it doesn't guarantee a
+      specific product is in stock. If the check times out, it usually means the shop is
+      down or your network is blocking it.
+    </p>
+  </section>
+
+  <footer>
+    &copy; 2026 BaBBled LLC &middot; <a href="mailto:babbledllc@gmail.com">babbledllc@gmail.com</a>
+  </footer>
+</div>
+<script>
+(function () {
+  var TIMEOUT_MS = 6000;
+
+  function probe(url, timeoutMs) {
+    var controller = new AbortController();
+    var timer = setTimeout(function () { controller.abort(); }, timeoutMs);
+    var start = performance.now();
+    return fetch(url, { mode: 'no-cors', cache: 'no-store', signal: controller.signal })
+      .then(function () {
+        clearTimeout(timer);
+        return { ok: true, latencyMs: Math.round(performance.now() - start) };
+      })
+      .catch(function () {
+        clearTimeout(timer);
+        return { ok: false, latencyMs: Math.round(performance.now() - start) };
+      });
+  }
+
+  function setPill(pillEl, state, label) {
+    pillEl.classList.remove('checking', 'online', 'down');
+    pillEl.classList.add(state);
+    pillEl.textContent = label;
+  }
+
+  function formatNow() {
+    try { return new Date().toLocaleString(); }
+    catch (e) { return new Date().toISOString(); }
+  }
+
+  function runCheck(card) {
+    var url = card.getAttribute('data-url');
+    var pill = card.querySelector('[data-role="pill"]');
+    var latency = card.querySelector('[data-role="latency"]');
+    var timestamp = card.querySelector('[data-role="timestamp"]');
+    var button = card.querySelector('[data-role="recheck"]');
+
+    setPill(pill, 'checking', 'Checking\u2026');
+    latency.textContent = '';
+    if (button) button.disabled = true;
+
+    probe(url, TIMEOUT_MS).then(function (result) {
+      if (result.ok) {
+        setPill(pill, 'online', 'Online');
+        latency.textContent = '~' + result.latencyMs + ' ms';
+      } else {
+        setPill(pill, 'down', 'Unreachable');
+        latency.textContent = 'timed out after ' + result.latencyMs + ' ms';
+      }
+      timestamp.textContent = 'Last checked: ' + formatNow();
+      if (button) button.disabled = false;
+    });
+  }
+
+  var cards = document.querySelectorAll('#statuses .card[data-url]');
+  cards.forEach(function (card) {
+    runCheck(card);
+    var button = card.querySelector('[data-role="recheck"]');
+    if (button) {
+      button.addEventListener('click', function () { runCheck(card); });
+    }
+  });
+})();
+</script>
+</body>
+</html>
