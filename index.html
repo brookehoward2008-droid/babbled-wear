@@ -3,195 +3,296 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>BaBBled. Where ink speaks.</title>
-<meta name="description" content="BaBBled. Where ink speaks. Photography and original art by Brooke Chauntel. Prints, apparel, collectibles, digital downloads.">
-<meta property="og:title" content="BaBBled. Where ink speaks.">
-<meta property="og:description" content="Photography of vintage dolls and the haunted in-between. Original art, prints, apparel, and on-chain collectibles by Brooke Chauntel.">
+<title>BaBBled · Ink that speaks</title>
+<meta name="description" content="BaBBled · Ink that speaks. Mixed-media art, ink, watercolor, and photography by Brooke Chauntel. Original work, prints, and on-chain drops.">
+<meta property="og:title" content="BaBBled · Ink that speaks">
+<meta property="og:description" content="Mixed-media art, ink, watercolor, and photography by Brooke Chauntel. Original work, prints, and on-chain drops.">
 <meta property="og:image" content="https://brookehoward2008-droid.github.io/babbled-wear/img/photography/series-1.jpg">
 <meta property="og:type" content="website">
 <link rel="icon" href="favicon.ico">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Inter:wght@400;500;600&family=Playfair+Display:ital@1&display=swap" rel="stylesheet">
 <style>
 :root {
-  --pink: #ff2d87;
-  --purple: #7b2cbf;
-  --yellow: #ffd60a;
-  --ink: #0f0f14;
-  --paper: #fafafa;
+  --ink: #0F0F12;
+  --paper: #F5EFE3;
+  --paper-warm: #EFE8D9;
+  --moss: #5B6B4A;
+  --rule: rgba(15, 15, 18, 0.12);
+  --quiet: rgba(15, 15, 18, 0.62);
 }
 * { box-sizing: border-box; margin: 0; padding: 0; }
 html, body { height: 100%; }
 body {
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Inter, system-ui, sans-serif;
-  background: var(--ink);
-  color: var(--paper);
+  font-family: "Inter", -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
+  background: var(--paper);
+  color: var(--ink);
   -webkit-font-smoothing: antialiased;
-  overflow-x: hidden;
-}
-.bg {
-  position: fixed; inset: 0; z-index: -1;
-  background:
-    radial-gradient(circle at 20% 10%, rgba(255,45,135,0.35), transparent 40%),
-    radial-gradient(circle at 80% 60%, rgba(123,44,191,0.45), transparent 50%),
-    radial-gradient(circle at 50% 90%, rgba(255,214,10,0.15), transparent 40%),
-    var(--ink);
+  -moz-osx-font-smoothing: grayscale;
+  font-size: 17px;
+  line-height: 1.6;
+  font-weight: 400;
 }
 .wrap {
-  max-width: 960px;
+  max-width: 1080px;
   margin: 0 auto;
-  padding: 48px 24px 96px;
-  min-height: 100vh;
+  padding: 32px 28px 96px;
   display: flex;
   flex-direction: column;
-  gap: 48px;
+  gap: 96px;
 }
 header {
   display: flex;
-  align-items: center;
+  align-items: baseline;
   justify-content: space-between;
   flex-wrap: wrap;
-  gap: 12px;
+  gap: 16px;
+  padding-bottom: 24px;
+  border-bottom: 1px solid var(--rule);
 }
 .logo {
-  font-weight: 900;
-  font-size: 22px;
-  letter-spacing: -0.02em;
-}
-.logo .b1 { color: var(--pink); }
-.logo .b2 { color: var(--yellow); }
-nav a {
-  color: var(--paper);
+  font-family: "Cormorant Garamond", Georgia, serif;
+  font-weight: 600;
+  font-size: 28px;
+  letter-spacing: 0.01em;
+  color: var(--ink);
   text-decoration: none;
-  margin-left: 20px;
+}
+.logo .ll { font-style: italic; font-weight: 500; }
+nav {
+  display: flex;
+  gap: 28px;
   font-size: 14px;
-  opacity: 0.8;
-  transition: opacity 0.2s;
+  letter-spacing: 0.04em;
 }
-nav a:hover { opacity: 1; }
-.hero h1 {
-  font-size: clamp(48px, 10vw, 120px);
-  font-weight: 900;
-  line-height: 0.95;
-  letter-spacing: -0.04em;
-  background: linear-gradient(135deg, var(--pink), var(--purple) 60%, var(--yellow));
-  -webkit-background-clip: text;
-  background-clip: text;
-  color: transparent;
-  margin-bottom: 24px;
-}
-.hero p.tag {
-  font-size: clamp(18px, 2.5vw, 22px);
-  max-width: 640px;
-  opacity: 0.85;
-  line-height: 1.5;
-}
-.est {
-  display: inline-block;
-  font-size: 12px;
-  letter-spacing: 0.3em;
-  text-transform: uppercase;
-  color: var(--yellow);
-  margin-bottom: 16px;
-}
-.grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-  gap: 16px;
-}
-.card {
-  background: rgba(255,255,255,0.04);
-  border: 1px solid rgba(255,255,255,0.08);
-  border-radius: 16px;
-  padding: 24px;
-  transition: transform 0.2s, border-color 0.2s, background 0.2s;
+nav a {
+  color: var(--ink);
   text-decoration: none;
-  color: var(--paper);
-  display: block;
+  opacity: 0.7;
+  transition: opacity 0.15s, color 0.15s;
 }
-.card:hover {
-  transform: translateY(-4px);
-  border-color: var(--pink);
-  background: rgba(255,45,135,0.08);
+nav a:hover { opacity: 1; color: var(--moss); }
+
+.hero {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 40px;
+  padding-top: 8px;
 }
-.card h3 { font-size: 18px; margin-bottom: 8px; }
-.card p { font-size: 14px; opacity: 0.7; line-height: 1.5; }
-.card .pill {
-  display: inline-block;
+@media (min-width: 760px) {
+  .hero { grid-template-columns: 1.1fr 1fr; align-items: center; gap: 56px; }
+}
+.hero-text .est {
+  font-family: "Inter", sans-serif;
   font-size: 11px;
-  letter-spacing: 0.15em;
+  letter-spacing: 0.32em;
   text-transform: uppercase;
-  color: var(--yellow);
-  margin-bottom: 10px;
+  color: var(--moss);
+  margin-bottom: 24px;
+  display: inline-block;
 }
-.card.coming { opacity: 0.5; cursor: default; }
-.card.coming:hover { transform: none; border-color: rgba(255,255,255,0.08); background: rgba(255,255,255,0.04); }
+.hero-text h1 {
+  font-family: "Cormorant Garamond", Georgia, serif;
+  font-size: clamp(54px, 9vw, 96px);
+  font-weight: 500;
+  line-height: 1.0;
+  letter-spacing: -0.01em;
+  margin-bottom: 28px;
+  color: var(--ink);
+}
+.hero-text h1 em {
+  font-family: "Playfair Display", Georgia, serif;
+  font-style: italic;
+  font-weight: 400;
+  color: var(--moss);
+}
+.hero-text p {
+  font-size: 18px;
+  max-width: 480px;
+  color: var(--quiet);
+  line-height: 1.6;
+}
 .hero-art {
   display: block;
   width: 100%;
-  max-width: 480px;
   height: auto;
-  margin-top: 32px;
-  border-radius: 12px;
-  box-shadow: 0 20px 60px rgba(255,45,135,0.25), 0 0 80px rgba(123,44,191,0.3);
+  border: 1px solid var(--rule);
+  box-shadow: 0 12px 40px rgba(15, 15, 18, 0.08);
 }
+
+.section-head {
+  margin-bottom: 24px;
+}
+.section-head .kicker {
+  font-family: "Inter", sans-serif;
+  font-size: 11px;
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+  color: var(--moss);
+  margin-bottom: 8px;
+  display: block;
+}
+.section-head h2 {
+  font-family: "Cormorant Garamond", Georgia, serif;
+  font-size: clamp(28px, 4vw, 38px);
+  font-weight: 500;
+  letter-spacing: -0.005em;
+  color: var(--ink);
+  margin-bottom: 8px;
+}
+.section-head p {
+  color: var(--quiet);
+  max-width: 640px;
+  font-size: 16px;
+}
+
 .gallery-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-  gap: 16px;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 14px;
 }
 .piece {
   aspect-ratio: 1 / 1;
-  background: rgba(255,255,255,0.04);
-  border: 1px solid rgba(255,255,255,0.08);
-  border-radius: 16px;
+  background: var(--paper-warm);
+  border: 1px solid var(--rule);
   overflow: hidden;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  transition: transform 0.2s, border-color 0.2s;
+  display: block;
+  text-decoration: none;
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
 }
 .piece:hover {
-  transform: translateY(-4px);
-  border-color: var(--pink);
+  transform: translateY(-3px);
+  box-shadow: 0 12px 28px rgba(15, 15, 18, 0.12);
 }
 .piece img {
   width: 100%;
   height: 100%;
   object-fit: cover;
+  display: block;
 }
+
+.shop-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 14px;
+}
+.card {
+  background: var(--paper-warm);
+  border: 1px solid var(--rule);
+  padding: 28px 24px;
+  text-decoration: none;
+  color: var(--ink);
+  display: block;
+  transition: border-color 0.2s, background 0.2s;
+}
+.card:hover {
+  border-color: var(--moss);
+  background: #ECE3CF;
+}
+.card .pill {
+  font-size: 10px;
+  letter-spacing: 0.24em;
+  text-transform: uppercase;
+  color: var(--moss);
+  display: block;
+  margin-bottom: 12px;
+}
+.card h3 {
+  font-family: "Cormorant Garamond", Georgia, serif;
+  font-size: 24px;
+  font-weight: 500;
+  letter-spacing: -0.005em;
+  margin-bottom: 6px;
+}
+.card p {
+  font-size: 14px;
+  color: var(--quiet);
+  line-height: 1.55;
+}
+.card.coming { opacity: 0.55; cursor: default; }
+.card.coming:hover { border-color: var(--rule); background: var(--paper-warm); }
+
+.about {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 32px;
+}
+@media (min-width: 760px) {
+  .about { grid-template-columns: 1fr 2fr; gap: 56px; align-items: start; }
+}
+.about-photo {
+  width: 100%;
+  max-width: 320px;
+  aspect-ratio: 1 / 1;
+  background: var(--paper-warm);
+  border: 1px solid var(--rule);
+  overflow: hidden;
+}
+.about-photo img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+.about-text p {
+  font-size: 17px;
+  line-height: 1.7;
+  color: var(--ink);
+  margin-bottom: 16px;
+  max-width: 580px;
+}
+.about-text p.signoff {
+  font-family: "Playfair Display", Georgia, serif;
+  font-style: italic;
+  color: var(--moss);
+  font-size: 18px;
+  margin-top: 8px;
+}
+
 footer {
-  margin-top: auto;
-  font-size: 12px;
-  opacity: 0.5;
-  text-align: center;
+  margin-top: 32px;
   padding-top: 32px;
-  border-top: 1px solid rgba(255,255,255,0.08);
+  border-top: 1px solid var(--rule);
+  font-size: 13px;
+  color: var(--quiet);
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 12px;
 }
-footer a { color: var(--paper); }
+footer a { color: var(--ink); opacity: 0.7; text-decoration: none; }
+footer a:hover { opacity: 1; color: var(--moss); }
 </style>
 </head>
 <body>
-<div class="bg"></div>
 <div class="wrap">
+
   <header>
-    <div class="logo">Ba<span class="b1">BB</span>led</div>
+    <a href="/" class="logo">Ba<span class="ll">BB</span>led</a>
     <nav>
+      <a href="#work">Work</a>
       <a href="#shop">Shop</a>
-      <a href="status.html">Status</a>
       <a href="#about">About</a>
       <a href="mailto:babbledllc@gmail.com">Contact</a>
     </nav>
   </header>
 
   <section class="hero">
-    <span class="est">est. 2025</span>
-    <h1>where ink<br>speaks.</h1>
-    <p class="tag">Photography and original art by Brooke Chauntel. Prints, apparel, collectibles, and digital downloads.</p>
-    <img src="img/photography/series-1.jpg" alt="Bookstore mannequin with teacup - photography by Brooke Chauntel" class="hero-art">
+    <div class="hero-text">
+      <span class="est">Studio · est. 2024</span>
+      <h1>Ink that<br><em>speaks.</em></h1>
+      <p>Mixed-media art, ink, watercolor, and photography by Brooke Chauntel. Original work, prints, and on-chain drops from the Pacific Northwest.</p>
+    </div>
+    <img src="img/photography/series-1.jpg" alt="Photograph of vintage bookstore mannequin holding a teacup, by Brooke Chauntel" class="hero-art">
   </section>
 
-  <section id="photography">
-    <h2 style="font-size:14px;letter-spacing:0.3em;text-transform:uppercase;opacity:0.6;margin-bottom:8px;">Photography &middot; minted on Zora</h2>
-    <p style="font-size:13px;opacity:0.6;margin-bottom:16px;">Vintage dolls, mannequins, and the haunted in-between. Each piece is collectible on Zora.</p>
+  <section id="work">
+    <div class="section-head">
+      <span class="kicker">Photography · minted on Zora</span>
+      <h2>The haunted in-between</h2>
+      <p>Vintage dolls, mannequins, and the photographs that find them. Each piece is collectible on Zora.</p>
+    </div>
     <div class="gallery-grid">
       <a class="piece" href="https://zora.co/@babbled1977" target="_blank" rel="noopener"><img src="img/photography/series-1.jpg" alt="Bookstore mannequin with teacup" loading="lazy"></a>
       <a class="piece" href="https://zora.co/@babbled1977" target="_blank" rel="noopener"><img src="img/photography/series-2.jpg" alt="Vintage doll grouping" loading="lazy"></a>
@@ -204,22 +305,29 @@ footer a { color: var(--paper); }
     </div>
   </section>
 
-  <section id="nature">
-    <h2 style="font-size:14px;letter-spacing:0.3em;text-transform:uppercase;opacity:0.6;margin-bottom:8px;">Bloom &amp; weather</h2>
-    <p style="font-size:13px;opacity:0.6;margin-bottom:16px;">Flowers, fog, and the small dramas of the garden. Prints and products in the shop.</p>
+  <section id="bloom">
+    <div class="section-head">
+      <span class="kicker">Photography · prints</span>
+      <h2>Bloom &amp; weather</h2>
+      <p>Flowers, fog, and small dramas of the garden. Available as prints.</p>
+    </div>
     <div class="gallery-grid">
       <a class="piece" href="https://www.redbubble.com/people/babbledbrooke/shop" target="_blank" rel="noopener"><img src="img/nature/pink-rose-spiral.jpg" alt="Pink rose spiral closeup under stormy sky" loading="lazy"></a>
       <a class="piece" href="https://www.redbubble.com/people/babbledbrooke/shop" target="_blank" rel="noopener"><img src="img/nature/dahlia-bloom.jpg" alt="Dahlia bloom in yellow and crimson" loading="lazy"></a>
       <a class="piece" href="https://www.redbubble.com/people/babbledbrooke/shop" target="_blank" rel="noopener"><img src="img/nature/stormy-rose.jpg" alt="Pink rose against stormy sky" loading="lazy"></a>
       <a class="piece" href="https://www.redbubble.com/people/babbledbrooke/shop" target="_blank" rel="noopener"><img src="img/nature/hydrangeas.jpg" alt="Pink and lavender hydrangea cluster" loading="lazy"></a>
       <a class="piece" href="https://www.redbubble.com/people/babbledbrooke/shop" target="_blank" rel="noopener"><img src="img/nature/foggy-river.jpg" alt="Foggy river and pink autumn forest" loading="lazy"></a>
-      <a class="piece" href="https://www.redbubble.com/people/babbledbrooke/shop" target="_blank" rel="noopener"><img src="img/nature/beach-swing.jpg" alt="Weathered wooden swing on beach sand, black and white" loading="lazy"></a>
+      <a class="piece" href="https://www.redbubble.com/people/babbledbrooke/shop" target="_blank" rel="noopener"><img src="img/nature/beach-swing.jpg" alt="Crab on a swing at the beach, black and white" loading="lazy"></a>
       <a class="piece" href="https://www.redbubble.com/people/babbledbrooke/shop" target="_blank" rel="noopener"><img src="img/nature/jack-o-lantern.jpg" alt="Glowing jack-o-lantern with neon outline" loading="lazy"></a>
     </div>
   </section>
 
-  <section id="gallery">
-    <h2 style="font-size:14px;letter-spacing:0.3em;text-transform:uppercase;opacity:0.6;margin-bottom:16px;">Selected work</h2>
+  <section id="selected">
+    <div class="section-head">
+      <span class="kicker">Selected work</span>
+      <h2>Illustration &amp; mixed media</h2>
+      <p>Geisha, koi, sushi, surreal Seattle, ink studies. Some live as prints. Others wait for the right wall.</p>
+    </div>
     <div class="gallery-grid">
       <div class="piece"><img src="img/gallery/geisha-gumwall-popart.png" alt="Gum wall geisha, pop art" loading="lazy"></div>
       <div class="piece"><img src="img/gallery/geisha-gumwall-surreal.png" alt="Gum wall geisha, surrealism" loading="lazy"></div>
@@ -246,64 +354,78 @@ footer a { color: var(--paper); }
   </section>
 
   <section id="shop">
-    <h2 style="font-size:14px;letter-spacing:0.3em;text-transform:uppercase;opacity:0.6;margin-bottom:16px;">Shop</h2>
-    <div class="grid">
+    <div class="section-head">
+      <span class="kicker">Where to buy</span>
+      <h2>Shop</h2>
+      <p>Different platforms for different moods. All of it sends to the same studio.</p>
+    </div>
+    <div class="shop-grid">
       <a class="card" href="https://www.redbubble.com/people/babbledbrooke/shop" target="_blank" rel="noopener">
         <span class="pill">Print on demand</span>
-        <h3>Redbubble &rarr;</h3>
+        <h3>Redbubble</h3>
         <p>Apparel, stickers, wall art, accessories. Printed and shipped worldwide.</p>
       </a>
       <a class="card" href="https://babbler53.gumroad.com/" target="_blank" rel="noopener">
         <span class="pill">Digital downloads</span>
-        <h3>Gumroad &rarr;</h3>
-        <p>High-res digital prints and wallpaper files. Instant download.</p>
+        <h3>Gumroad</h3>
+        <p>High-resolution prints and wallpaper files. Instant download.</p>
       </a>
-      <div class="card coming">
-        <span class="pill">Handmade · coming soon</span>
-        <h3>Etsy</h3>
-        <p>Limited runs and one-offs. When the muse says yes.</p>
-      </div>
-      <div class="card coming">
-        <span class="pill">Fine art · coming soon</span>
-        <h3>Originals</h3>
-        <p>One-of-one paintings by Brooke. Signed, certified, shipped carefully.</p>
-      </div>
       <a class="card" href="https://zora.co/@babbled1977" target="_blank" rel="noopener">
         <span class="pill">On-chain drops</span>
-        <h3>Zora &rarr;</h3>
-        <p>Mint and collect BaBBled drops on Base. New pieces as the muse says yes.</p>
+        <h3>Zora</h3>
+        <p>Mint and collect BaBBled drops on Base. New work as it lands.</p>
       </a>
       <a class="card" href="https://cash.app/$BaBBledInk" target="_blank" rel="noopener">
         <span class="pill">Pay direct</span>
-        <h3>Cash App &rarr;</h3>
-        <p>Tip, commission, or buy an original directly. $BaBBledInk.</p>
+        <h3>Cash App</h3>
+        <p>Tip, commission, or buy direct. <strong>$BaBBledInk</strong>.</p>
       </a>
+      <div class="card coming">
+        <span class="pill">Fine art prints · coming soon</span>
+        <h3>Fine Art America</h3>
+        <p>Reproduction prints of paintings, ink work, and photography. Canvas, framed, metal.</p>
+      </div>
+      <div class="card coming">
+        <span class="pill">Curated · coming soon</span>
+        <h3>Saatchi Art</h3>
+        <p>Selected prints for collectors. Galleries and global shipping.</p>
+      </div>
       <a class="card" href="https://farcaster.xyz/babbled1977" target="_blank" rel="noopener">
         <span class="pill">Social · on-chain</span>
-        <h3>Farcaster &rarr;</h3>
+        <h3>Farcaster</h3>
         <p>Follow @babbled1977 for drops, sketches, and behind the ink.</p>
       </a>
       <a class="card" href="https://www.instagram.com/babbledllc/" target="_blank" rel="noopener">
         <span class="pill">Social</span>
-        <h3>Instagram &rarr;</h3>
-        <p>Daily photography, doll portraits, and studio process. @babbledllc.</p>
+        <h3>Instagram</h3>
+        <p>Daily photography, doll portraits, studio process. <strong>@babbledllc</strong>.</p>
       </a>
     </div>
   </section>
 
   <section id="about">
-    <h2 style="font-size:14px;letter-spacing:0.3em;text-transform:uppercase;opacity:0.6;margin-bottom:16px;">About</h2>
-    <p style="max-width:640px;line-height:1.7;opacity:0.85;">
-      BaBBled is Brooke Chauntel's art studio. Surreal, loud, a little haunted.
-      Photography of vintage dolls, mannequins, and the in-between, alongside
-      original illustration and design. Based in Washington, shipping wherever you are.
-    </p>
+    <div class="section-head">
+      <span class="kicker">About</span>
+      <h2>Brooke Chauntel</h2>
+    </div>
+    <div class="about">
+      <div class="about-photo">
+        <img src="img/about/brooke_profile.jpg" alt="Portrait of Brooke Chauntel" loading="lazy">
+      </div>
+      <div class="about-text">
+        <p>Brooke Chauntel makes art out of contradiction. Ink pieces where the hand has to commit. Mixed-media paintings where bodies turn into weather. Photographs that find a single moment already holding everything. She grew up paying attention to texture, pattern, and mood, and she makes things that try to pay it back.</p>
+        <p>She's a mother, a designer, and a lived-in student at Everett Community College, where she's earning a degree in Graphic &amp; Web Design with a 4.0 GPA and President's Club three semesters running. Seven years of independent design practice lives under the art, the discipline that keeps the work from drifting.</p>
+        <p>She likes grit, contrast, tenderness, weathered things, black-and-white structure that suddenly floods with color. She doesn't like showroom beauty. She rock-hounds, forages, takes pictures, and pays attention. The work comes out of all of that.</p>
+        <p class="signoff">Design is not decoration. It is architecture for meaning.</p>
+      </div>
+    </div>
   </section>
 
   <footer>
-    &copy; 2026 BaBBled LLC &middot; <a href="mailto:babbledllc@gmail.com">babbledllc@gmail.com</a>
+    <span>&copy; 2026 BaBBled LLC · Everett, WA</span>
+    <span><a href="mailto:babbledllc@gmail.com">babbledllc@gmail.com</a></span>
   </footer>
+
 </div>
 </body>
 </html>
-<!-- rebuild trigger -->
