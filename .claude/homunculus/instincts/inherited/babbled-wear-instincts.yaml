@@ -1,0 +1,278 @@
+# Instincts generated from https://github.com/brookehoward2008-droid/babbled-wear
+# Generated: 2026-04-15T10:12:31.138Z
+# Version: 2.0
+# NOTE: This file supplements (does not replace) any existing curated instincts.
+# High-confidence manually curated instincts should be preserved alongside these.
+
+---
+id: babbled-wear-commit-length
+trigger: "when writing a commit message"
+confidence: 0.6
+domain: git
+source: repo-analysis
+source_repo: https://github.com/brookehoward2008-droid/babbled-wear
+---
+
+# Babbled Wear Commit Length
+
+## Action
+
+Keep commit messages concise (~48 characters)
+
+## Evidence
+
+- Average commit message length: 48 chars
+- Based on 2 commits
+
+---
+id: babbled-wear-naming-files
+trigger: "when creating a new file"
+confidence: 0.8
+domain: code-style
+source: repo-analysis
+source_repo: https://github.com/brookehoward2008-droid/babbled-wear
+---
+
+# Babbled Wear Naming Files
+
+## Action
+
+Use camelCase naming convention
+
+## Evidence
+
+- Analyzed file naming patterns in repository
+- Dominant pattern: camelCase
+
+---
+id: babbled-wear-import-relative
+trigger: "when importing modules"
+confidence: 0.75
+domain: code-style
+source: repo-analysis
+source_repo: https://github.com/brookehoward2008-droid/babbled-wear
+---
+
+# Babbled Wear Import Relative
+
+## Action
+
+Use relative imports for project files
+
+## Evidence
+
+- Import analysis shows relative import pattern
+- Example: import { x } from '../lib/x'
+
+---
+id: babbled-wear-export-style
+trigger: "when exporting from a module"
+confidence: 0.7
+domain: code-style
+source: repo-analysis
+source_repo: https://github.com/brookehoward2008-droid/babbled-wear
+---
+
+# Babbled Wear Export Style
+
+## Action
+
+Prefer named exports
+
+## Evidence
+
+- Export pattern analysis
+- Dominant style: named
+
+---
+id: babbled-wear-test-separate
+trigger: "when writing tests"
+confidence: 0.8
+domain: testing
+source: repo-analysis
+source_repo: https://github.com/brookehoward2008-droid/babbled-wear
+---
+
+# Babbled Wear Test Separate
+
+## Action
+
+Place tests in the tests/ or __tests__/ directory, mirroring src structure
+
+## Evidence
+
+- Separate test directory pattern detected
+- Tests live in dedicated test folders
+
+---
+id: babbled-wear-instinct-file-naming
+trigger: "When creating a new file"
+confidence: 0.9
+domain: code-style
+source: repo-analysis
+source_repo: brookehoward2008-droid/babbled-wear
+---
+
+# Babbled Wear Instinct File Naming
+
+## Action
+
+Name the file using camelCase
+
+## Evidence
+
+- Pattern in namingConventions.files
+
+---
+id: babbled-wear-instinct-function-naming
+trigger: "When defining a new function"
+confidence: 0.9
+domain: code-style
+source: repo-analysis
+source_repo: brookehoward2008-droid/babbled-wear
+---
+
+# Babbled Wear Instinct Function Naming
+
+## Action
+
+Name the function using camelCase
+
+## Evidence
+
+- Pattern in namingConventions.functions
+
+---
+id: babbled-wear-instinct-class-naming
+trigger: "When defining a new class"
+confidence: 0.9
+domain: code-style
+source: repo-analysis
+source_repo: brookehoward2008-droid/babbled-wear
+---
+
+# Babbled Wear Instinct Class Naming
+
+## Action
+
+Name the class using PascalCase
+
+## Evidence
+
+- Pattern in namingConventions.classes
+
+---
+id: babbled-wear-instinct-constant-naming
+trigger: "When defining a constant"
+confidence: 0.9
+domain: code-style
+source: repo-analysis
+source_repo: brookehoward2008-droid/babbled-wear
+---
+
+# Babbled Wear Instinct Constant Naming
+
+## Action
+
+Name the constant using SCREAMING_SNAKE_CASE
+
+## Evidence
+
+- Pattern in namingConventions.constants
+
+---
+id: babbled-wear-instinct-import-style
+trigger: "When importing modules"
+confidence: 0.9
+domain: code-style
+source: repo-analysis
+source_repo: brookehoward2008-droid/babbled-wear
+---
+
+# Babbled Wear Instinct Import Style
+
+## Action
+
+Use relative import paths
+
+## Evidence
+
+- Pattern in importStyle
+
+---
+id: babbled-wear-instinct-export-style
+trigger: "When exporting from a module"
+confidence: 0.9
+domain: code-style
+source: repo-analysis
+source_repo: brookehoward2008-droid/babbled-wear
+---
+
+# Babbled Wear Instinct Export Style
+
+## Action
+
+Use named exports
+
+## Evidence
+
+- Pattern in exportStyle
+
+---
+id: babbled-wear-instinct-commit-format
+trigger: "When writing a commit message"
+confidence: 0.8
+domain: git
+source: repo-analysis
+source_repo: brookehoward2008-droid/babbled-wear
+---
+
+# Babbled Wear Instinct Commit Format
+
+## Action
+
+Write a freeform message without a prefix, typically starting with a capitalized verb and a colon-separated description
+
+## Evidence
+
+- Seen in commit: 'Add status.html: live reachability check for Gumroad storefront'
+- Seen in commit: 'Add .gitignore for private notes'
+
+---
+id: babbled-wear-instinct-commit-length
+trigger: "When writing a commit message"
+confidence: 0.7
+domain: git
+source: repo-analysis
+source_repo: brookehoward2008-droid/babbled-wear
+---
+
+# Babbled Wear Instinct Commit Length
+
+## Action
+
+Keep the commit message concise, around 48 characters on average
+
+## Evidence
+
+- Pattern in commits.averageLength
+
+---
+id: babbled-wear-instinct-test-location
+trigger: "When adding new tests"
+confidence: 0.8
+domain: testing
+source: repo-analysis
+source_repo: brookehoward2008-droid/babbled-wear
+---
+
+# Babbled Wear Instinct Test Location
+
+## Action
+
+Place test files in a separate location from source files
+
+## Evidence
+
+- Pattern in architecture.folderStructure.testLocation
+
