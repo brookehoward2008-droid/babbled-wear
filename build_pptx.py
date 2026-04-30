@@ -237,7 +237,41 @@ add_text(s, Inches(0.7), Inches(6.85), Inches(12), Inches(0.5),
          "One PDF beats five attachments — every time.",
          size=15, bold=True, color=YELLOW)
 
-# ---------- Slide 9: Activity ----------
+# ---------- Slide 9: Shortcut — Export → PDF ----------
+s = prs.slides.add_slide(BLANK)
+add_bg(s)
+eyebrow(s, "Shortcut")
+title(s, "Skip the Print dialog with Export → PDF", size=34)
+add_text(s, Inches(0.7), Inches(2.0), Inches(12), Inches(0.7),
+         "Some apps offer a one-step PDF export. Always check the File menu first.",
+         size=20, color=PAPER)
+shortcut_cards = [
+    ("Word · PowerPoint",
+     "File  →  Export  →  Create PDF/XPS Document"),
+    ("Pages · Numbers · Keynote",
+     "File  →  Export To  →  PDF…"),
+    ("Photos (Mac)",
+     "File  →  Export  →  Save PDF to…"),
+    ("Google Docs · Slides · Sheets",
+     "File  →  Download  →  PDF Document (.pdf)"),
+]
+positions = [(0.7, 2.9), (6.95, 2.9), (0.7, 5.0), (6.95, 5.0)]
+for (heading, copy), (l, t) in zip(shortcut_cards, positions):
+    cardshape = s.shapes.add_shape(MSO_SHAPE.ROUNDED_RECTANGLE, Inches(l), Inches(t),
+                                   Inches(5.95), Inches(1.85))
+    cardshape.fill.solid()
+    cardshape.fill.fore_color.rgb = RGBColor(0x1C, 0x1C, 0x26)
+    cardshape.line.color.rgb = YELLOW
+    cardshape.line.width = Pt(1.5)
+    add_text(s, Inches(l + 0.25), Inches(t + 0.18), Inches(5.5), Inches(0.5),
+             heading, size=20, bold=True, color=YELLOW)
+    add_text(s, Inches(l + 0.25), Inches(t + 0.78), Inches(5.5), Inches(1.0),
+             copy, size=18, color=PAPER)
+add_text(s, Inches(0.7), Inches(7.05), Inches(12), Inches(0.5),
+         "If \"Export\" isn't there, fall back to the Print method we just learned.",
+         size=14, bold=True, color=YELLOW)
+
+# ---------- Slide 10: Activity ----------
 s = prs.slides.add_slide(BLANK)
 add_bg(s)
 eyebrow(s, "Your turn")
@@ -252,7 +286,7 @@ add_text(s, Inches(0.7), Inches(6.4), Inches(12), Inches(0.6),
          "Raise your hand if you get stuck — I'll come help.",
          size=18, color=PAPER)
 
-# ---------- Slide 10: Pitfalls ----------
+# ---------- Slide 11: Pitfalls ----------
 s = prs.slides.add_slide(BLANK)
 add_bg(s)
 eyebrow(s, "Watch out for")
@@ -280,7 +314,7 @@ for (heading, copy), (l, t) in zip(pitfalls, positions):
     add_text(s, Inches(l + 0.25), Inches(t + 0.85), Inches(5.5), Inches(1.1),
              copy, size=16, color=PAPER)
 
-# ---------- Slide 11: Recap ----------
+# ---------- Slide 12: Recap ----------
 s = prs.slides.add_slide(BLANK)
 add_bg(s)
 eyebrow(s, "Quick recap")
@@ -294,7 +328,7 @@ bullets(s, [
     "Name your file something you can find later.",
 ], top=4.4, size=20, height=3.0)
 
-# ---------- Slide 12: Final tips + thanks ----------
+# ---------- Slide 13: Final tips + thanks ----------
 s = prs.slides.add_slide(BLANK)
 add_bg(s)
 eyebrow(s, "Final tips")

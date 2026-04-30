@@ -226,7 +226,31 @@ d.text((90, H - 30), "One PDF beats five attachments — every time.",
        font=font(18, True), fill=YELLOW)
 slides.append(img)
 
-# 9 Activity
+# 9 Shortcut — Export → PDF
+img, d = base()
+eyebrow(d, "Shortcut")
+title(d, "Skip the Print dialog with Export → PDF", size=44)
+draw_wrapped(d, 90, 240, "Some apps offer a one-step PDF export. Always check the File menu first.",
+             font(24), PAPER, W - 180, line_gap=4)
+
+shortcut_cards = [
+    ("Word · PowerPoint", "File → Export → Create PDF/XPS Document"),
+    ("Pages · Numbers · Keynote", "File → Export To → PDF…"),
+    ("Photos (Mac)", "File → Export → Save PDF to…"),
+    ("Google Docs · Slides · Sheets", "File → Download → PDF Document (.pdf)"),
+]
+positions = [(90, 340), (820, 340), (90, 580), (820, 580)]
+for (h_, c_), (x, y) in zip(shortcut_cards, positions):
+    d.rounded_rectangle((x, y, x + 690, y + 210), radius=18, fill=CARD,
+                        outline=YELLOW, width=2)
+    d.text((x + 30, y + 22), h_, font=font(22, True), fill=YELLOW)
+    draw_wrapped(d, x + 30, y + 75, c_, font(20), PAPER, 690 - 60, line_gap=4)
+
+d.text((90, H - 50), "If \"Export\" isn't there, fall back to the Print method we just learned.",
+       font=font(16, True), fill=YELLOW)
+slides.append(img)
+
+# 10 Activity
 img, d = base()
 eyebrow(d, "Your turn")
 title(d, "Try it with me — 60 seconds.", size=64)
@@ -240,7 +264,7 @@ d.text((90, H - 90), "Raise your hand if you get stuck — I'll come help.",
        font=font(22), fill=PAPER)
 slides.append(img)
 
-# 10 Pitfalls
+# 11 Pitfalls
 img, d = base()
 eyebrow(d, "Watch out for")
 title(d, "Three things that trip people up", size=54)
@@ -255,7 +279,7 @@ for (h_, c_), (x, y) in zip(pitfalls, positions):
     card(d, x, y, 690, 240, h_, c_, border=PINK, hcolor=PINK)
 slides.append(img)
 
-# 11 Recap
+# 12 Recap
 img, d = base()
 eyebrow(d, "Quick recap")
 title(d, "The whole skill in five words:", size=56)
@@ -268,7 +292,7 @@ bullets(d, [
 ], y=520, size=24)
 slides.append(img)
 
-# 12 Thanks
+# 13 Thanks
 img, d = base()
 eyebrow(d, "Final tips")
 title(d, "Two habits that will save you time", size=54)
@@ -285,7 +309,7 @@ slides.append(img)
 for i, s in enumerate(slides, 1):
     s.save(f"{OUT}/slide-{i:02d}.png")
 
-cols, rows = 2, 6
+cols, rows = 2, 7
 tw, th = W // 3, H // 3
 sheet = Image.new("RGB", (tw * cols + (cols+1)*20, th * rows + (rows+1)*20), (10, 10, 14))
 for i, s in enumerate(slides):
