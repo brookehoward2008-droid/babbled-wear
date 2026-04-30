@@ -84,8 +84,8 @@ def bullets(slide, items, *, top=2.6, size=22, height=4.4):
         run.font.name = "Calibri"
 
 
-def steps(slide, items, *, top=2.4, size=22):
-    tb = slide.shapes.add_textbox(Inches(0.7), Inches(top), Inches(12), Inches(4.6))
+def steps(slide, items, *, top=2.4, size=22, width=12):
+    tb = slide.shapes.add_textbox(Inches(0.7), Inches(top), Inches(width), Inches(4.6))
     tf = tb.text_frame
     tf.word_wrap = True
     for i, item in enumerate(items):
@@ -109,15 +109,17 @@ def steps(slide, items, *, top=2.4, size=22):
 s = prs.slides.add_slide(BLANK)
 add_bg(s)
 eyebrow(s, "Training Presentation")
-add_text(s, Inches(0.7), Inches(1.4), Inches(12), Inches(2.4),
-         "Save Images as a PDF", size=64, bold=True, color=PINK)
-add_text(s, Inches(0.7), Inches(2.7), Inches(12), Inches(1.0),
-         "— Using Print.", size=44, bold=True, color=YELLOW)
-add_text(s, Inches(0.7), Inches(4.3), Inches(12), Inches(1.2),
+add_text(s, Inches(0.7), Inches(1.4), Inches(8.5), Inches(2.4),
+         "Save Images as a PDF", size=58, bold=True, color=PINK)
+add_text(s, Inches(0.7), Inches(2.7), Inches(8.5), Inches(1.0),
+         "— Using Print.", size=42, bold=True, color=YELLOW)
+add_text(s, Inches(0.7), Inches(4.3), Inches(8.5), Inches(1.6),
          "A simple skill that works on almost any device, with no extra software to install.",
-         size=24, color=PAPER)
-add_text(s, Inches(0.7), Inches(6.3), Inches(12), Inches(0.6),
+         size=22, color=PAPER)
+add_text(s, Inches(0.7), Inches(6.3), Inches(8.5), Inches(0.6),
          "By Brooke Chauntel  ·  BaBBled.", size=16, color=DIM)
+s.shapes.add_picture("img/training/pdf-icon.png",
+                     Inches(9.5), Inches(1.4), height=Inches(5.0))
 
 # ---------- Slide 2: Hook ----------
 s = prs.slides.add_slide(BLANK)
@@ -175,57 +177,65 @@ for (heading, copy), (l, t) in zip(cards, positions):
 s = prs.slides.add_slide(BLANK)
 add_bg(s)
 eyebrow(s, "Method 1 · Windows")
-title(s, "Save an image as PDF on Windows", size=38)
+title(s, "Save an image as PDF on Windows", size=34)
 steps(s, [
     "Open the image — double-click it so it opens in Photos.",
     "Press Ctrl + P to open the Print dialog.",
     "Under Printer, choose \"Microsoft Print to PDF.\"",
     "Pick paper size and orientation, then click Print.",
     "Name the file and choose where to save it. Done.",
-])
+], size=18, width=6.5)
+s.shapes.add_picture("img/training/windows-print-dialog.png",
+                     Inches(7.2), Inches(2.0), width=Inches(5.7))
 
 # ---------- Slide 6: Mac ----------
 s = prs.slides.add_slide(BLANK)
 add_bg(s)
 eyebrow(s, "Method 2 · Mac")
-title(s, "Save an image as PDF on a Mac", size=38)
+title(s, "Save an image as PDF on a Mac", size=34)
 steps(s, [
     "Open the image in Preview (double-click it).",
     "Press ⌘ + P to open Print.",
     "In the bottom-left, click the PDF dropdown.",
     "Choose \"Save as PDF.\"",
     "Name it, pick a folder, click Save.",
-])
-add_text(s, Inches(0.7), Inches(6.5), Inches(12), Inches(0.6),
-         "Bonus: select multiple images in Finder, right-click → Quick Actions → Create PDF.",
-         size=16, bold=True, color=YELLOW)
+], size=18, width=6.5)
+s.shapes.add_picture("img/training/mac-print-dialog.png",
+                     Inches(7.2), Inches(2.0), width=Inches(5.7))
+add_text(s, Inches(0.7), Inches(6.7), Inches(12.5), Inches(0.5),
+         "Bonus: in Finder, select images → right-click → Quick Actions → Create PDF.",
+         size=14, bold=True, color=YELLOW)
 
 # ---------- Slide 7: Phone ----------
 s = prs.slides.add_slide(BLANK)
 add_bg(s)
 eyebrow(s, "Method 3 · Phone")
-title(s, "Save an image as PDF on your phone", size=38)
+title(s, "Save an image as PDF on your phone", size=32)
 steps(s, [
     "Open the image in your Photos or Gallery app.",
     "Tap the Share button (the box with the arrow).",
     "Scroll down and tap Print.",
-    "On the print preview, pinch out with two fingers (iPhone) or tap the PDF icon (Android).",
+    "Pinch out with two fingers on the preview (iPhone) or tap the PDF icon (Android).",
     "Tap Share / Save → Save to Files.",
-])
+], size=18, width=8.0)
+s.shapes.add_picture("img/training/iphone-share-sheet.png",
+                     Inches(9.0), Inches(1.6), height=Inches(5.6))
 
 # ---------- Slide 8: Multiple ----------
 s = prs.slides.add_slide(BLANK)
 add_bg(s)
 eyebrow(s, "Pro move")
-title(s, "Putting multiple images in one PDF", size=38)
+title(s, "Putting multiple images in one PDF", size=36)
+s.shapes.add_picture("img/training/multi-to-one.png",
+                     Inches(2.5), Inches(1.9), width=Inches(8.5))
 bullets(s, [
-    "Windows: select all images in File Explorer → right-click → Print → \"Microsoft Print to PDF.\"",
-    "Mac: select images in Finder → right-click → Quick Actions → Create PDF.",
-    "Phone: in Photos, tap Select, choose your images, then Share → Print → pinch out.",
-])
-add_text(s, Inches(0.7), Inches(6.3), Inches(12), Inches(0.6),
+    "Windows: File Explorer → select images → right-click → Print → \"Microsoft Print to PDF.\"",
+    "Mac: Finder → select images → right-click → Quick Actions → Create PDF.",
+    "Phone: Photos → Select → Share → Print → pinch out.",
+], top=5.5, size=18)
+add_text(s, Inches(0.7), Inches(6.85), Inches(12), Inches(0.5),
          "One PDF beats five attachments — every time.",
-         size=18, bold=True, color=YELLOW)
+         size=15, bold=True, color=YELLOW)
 
 # ---------- Slide 9: Activity ----------
 s = prs.slides.add_slide(BLANK)

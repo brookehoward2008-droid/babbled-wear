@@ -91,16 +91,29 @@ def card(d, x, y, w, h, heading, copy, border=PURPLE, hcolor=YELLOW):
     d.text((x + 30, y + 22), heading, font=font(26, True), fill=hcolor)
     draw_wrapped(d, x + 30, y + 70, copy, font(20), PAPER, w - 60, line_gap=4)
 
+
+def paste_image(img, path, x, y, w=None, h=None):
+    pic = Image.open(path).convert("RGBA")
+    if w and not h:
+        ratio = w / pic.width
+        h = int(pic.height * ratio)
+    elif h and not w:
+        ratio = h / pic.height
+        w = int(pic.width * ratio)
+    pic = pic.resize((int(w), int(h)), Image.LANCZOS)
+    img.paste(pic, (int(x), int(y)), pic)
+
 slides = []
 
 # 1 Title
 img, d = base()
 eyebrow(d, "Training Presentation")
-title(d, "Save Images as a PDF", size=92, color=PINK, y=150)
-title(d, "— Using Print.", size=64, color=YELLOW, y=300)
-draw_wrapped(d, 90, 460, "A simple skill that works on almost any device, with no extra software to install.",
-             font(30), PAPER, W - 180, line_gap=6)
+title(d, "Save Images as a PDF", size=80, color=PINK, y=150)
+title(d, "— Using Print.", size=58, color=YELLOW, y=290)
+draw_wrapped(d, 90, 440, "A simple skill that works on almost any device, with no extra software to install.",
+             font(26), PAPER, 1000, line_gap=6)
 d.text((90, H - 70), "By Brooke Chauntel  ·  BaBBled.", font=font(18), fill=DIM)
+paste_image(img, "img/training/pdf-icon.png", 1130, 170, h=600)
 slides.append(img)
 
 # 2 Hook
@@ -148,55 +161,69 @@ slides.append(img)
 # 5 Windows
 img, d = base()
 eyebrow(d, "Method 1 · Windows")
-title(d, "Save an image as PDF on Windows", size=54)
-steps_render(d, [
+title(d, "Save an image as PDF on Windows", size=44)
+
+# narrow the steps to the left half
+def steps_narrow(d, items, x=90, y=300, size=22, max_w=720):
+    f_ = font(size)
+    fb_ = font(size + 2, True)
+    for i, it in enumerate(items, 1):
+        d.text((x, y), f"{i}.", font=fb_, fill=PINK)
+        bottom = draw_wrapped(d, x + 50, y, it, f_, PAPER, max_w, line_gap=4)
+        y = bottom + 14
+    return y
+steps_narrow(d, [
     "Open the image — double-click it so it opens in Photos.",
     "Press Ctrl + P to open the Print dialog.",
     "Under Printer, choose \"Microsoft Print to PDF.\"",
     "Pick paper size and orientation, then click Print.",
     "Name the file and choose where to save it. Done.",
-], y=290, size=28)
+], y=300, size=22, max_w=720)
+paste_image(img, "img/training/windows-print-dialog.png", 870, 250, w=680)
 slides.append(img)
 
 # 6 Mac
 img, d = base()
 eyebrow(d, "Method 2 · Mac")
-title(d, "Save an image as PDF on a Mac", size=54)
-steps_render(d, [
+title(d, "Save an image as PDF on a Mac", size=44)
+steps_narrow(d, [
     "Open the image in Preview (double-click it).",
     "Press Command + P to open Print.",
     "In the bottom-left, click the PDF dropdown.",
     "Choose \"Save as PDF.\"",
     "Name it, pick a folder, click Save.",
-], y=290, size=28)
-d.text((90, H - 80), "Bonus: in Finder, select images → right-click → Quick Actions → Create PDF.",
-       font=font(20, True), fill=YELLOW)
+], y=300, size=22, max_w=720)
+paste_image(img, "img/training/mac-print-dialog.png", 870, 250, w=680)
+d.text((90, H - 70), "Bonus: in Finder, select images → right-click → Quick Actions → Create PDF.",
+       font=font(16, True), fill=YELLOW)
 slides.append(img)
 
 # 7 Phone
 img, d = base()
 eyebrow(d, "Method 3 · Phone")
-title(d, "Save an image as PDF on your phone", size=54)
-steps_render(d, [
+title(d, "Save an image as PDF on your phone", size=44)
+steps_narrow(d, [
     "Open the image in your Photos or Gallery app.",
     "Tap the Share button (the box with the arrow).",
     "Scroll down and tap Print.",
-    "Pinch out with two fingers (iPhone) or tap the PDF icon (Android).",
+    "Pinch out with two fingers on the preview (iPhone) or tap the PDF icon (Android).",
     "Tap Share / Save → Save to Files.",
-], y=290, size=28)
+], y=290, size=20, max_w=900)
+paste_image(img, "img/training/iphone-share-sheet.png", 1130, 180, h=680)
 slides.append(img)
 
 # 8 Multiple
 img, d = base()
 eyebrow(d, "Pro move")
-title(d, "Putting multiple images in one PDF", size=54)
+title(d, "Putting multiple images in one PDF", size=44)
+paste_image(img, "img/training/multi-to-one.png", 280, 200, w=1040)
 bullets(d, [
-    "Windows: select all images in File Explorer → right-click → Print → \"Microsoft Print to PDF.\"",
-    "Mac: select images in Finder → right-click → Quick Actions → Create PDF.",
-    "Phone: in Photos, tap Select, choose images, then Share → Print → pinch out.",
-], y=320, size=26)
-d.text((90, H - 80), "One PDF beats five attachments — every time.",
-       font=font(22, True), fill=YELLOW)
+    "Windows: File Explorer → select images → right-click → Print → \"Microsoft Print to PDF.\"",
+    "Mac: Finder → select images → right-click → Quick Actions → Create PDF.",
+    "Phone: Photos → Select → Share → Print → pinch out.",
+], y=680, size=20)
+d.text((90, H - 30), "One PDF beats five attachments — every time.",
+       font=font(18, True), fill=YELLOW)
 slides.append(img)
 
 # 9 Activity
