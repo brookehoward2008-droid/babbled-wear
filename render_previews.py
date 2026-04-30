@@ -250,18 +250,31 @@ d.text((90, H - 50), "If \"Export\" isn't there, fall back to the Print method w
        font=font(16, True), fill=YELLOW)
 slides.append(img)
 
-# 10 Activity
+# 10 Now you try — interactive sandbox
 img, d = base()
-eyebrow(d, "Your turn")
-title(d, "Try it with me — 60 seconds.", size=64)
-bullets(d, [
-    "Pick any photo on your device.",
-    "Open it. Hit Print.",
-    "Choose \"Save as PDF.\"",
-    "Save it to your Desktop as test.pdf.",
-], y=350, size=30)
-d.text((90, H - 90), "Raise your hand if you get stuck — I'll come help.",
-       font=font(22), fill=PAPER)
+eyebrow(d, "Now you try · Interactive sandbox")
+title(d, "Practice on a real page, live in your browser.", size=40)
+draw_wrapped(d, 90, 230, "Scan the QR code or open the link below. Drop in any photos, then tap \"Save as PDF.\"",
+             font(22), PAPER, 1000, line_gap=4)
+
+tiers = [
+    ("EASY",   "Drop in 1 photo. Save it as 'first.pdf'."),
+    ("MEDIUM", "Drop in 3 photos. Save them as one combined PDF."),
+    ("BONUS",  "Change the title field, save. Open the PDF — does the title match?"),
+]
+for i, (tag, copy) in enumerate(tiers):
+    ty = 360 + i * 110
+    d.rounded_rectangle((90, ty, 1090, ty + 95), radius=14, fill=CARD,
+                        outline=PINK, width=2)
+    d.text((120, ty + 28), tag, font=font(22, True), fill=YELLOW)
+    draw_wrapped(d, 280, ty + 28, copy, font(20), PAPER, 780, line_gap=4)
+
+paste_image(img, "img/training/sandbox-qr.png", 1170, 250, w=380)
+d.text((1240, 660), "Scan to open", font=font(18, True), fill=YELLOW)
+d.text((1170, 700), "babbled-wear/sandbox", font=font(20, True), fill=PAPER)
+
+d.text((90, H - 60), "Stuck? Raise your hand — I'll come help.",
+       font=font(20), fill=PAPER)
 slides.append(img)
 
 # 11 Pitfalls

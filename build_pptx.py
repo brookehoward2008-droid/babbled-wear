@@ -271,20 +271,44 @@ add_text(s, Inches(0.7), Inches(7.05), Inches(12), Inches(0.5),
          "If \"Export\" isn't there, fall back to the Print method we just learned.",
          size=14, bold=True, color=YELLOW)
 
-# ---------- Slide 10: Activity ----------
+# ---------- Slide 10: Now you try (interactive sandbox) ----------
 s = prs.slides.add_slide(BLANK)
 add_bg(s)
-eyebrow(s, "Your turn")
-title(s, "Try it with me — 60 seconds.", size=44)
-bullets(s, [
-    "Pick any photo on your device.",
-    "Open it. Hit Print.",
-    "Choose \"Save as PDF.\"",
-    "Save it to your Desktop as test.pdf.",
-])
-add_text(s, Inches(0.7), Inches(6.4), Inches(12), Inches(0.6),
-         "Raise your hand if you get stuck — I'll come help.",
+eyebrow(s, "Now you try · Interactive sandbox")
+title(s, "Practice on a real page, live in your browser.", size=32)
+add_text(s, Inches(0.7), Inches(2.0), Inches(8.3), Inches(0.7),
+         "Scan the QR code or open the link below. Drop in any photos, then tap \"Save as PDF.\"",
          size=18, color=PAPER)
+
+# Three activity tiers as cards (left side)
+tiers = [
+    ("EASY",  "Drop in 1 photo. Save it as 'first.pdf'."),
+    ("MEDIUM", "Drop in 3 photos. Save them as one combined PDF."),
+    ("BONUS", "Change the title field, then save. Open the PDF — does the title match?"),
+]
+for i, (tag, copy) in enumerate(tiers):
+    ty = 3.05 + i * 0.95
+    cardshape = s.shapes.add_shape(MSO_SHAPE.ROUNDED_RECTANGLE,
+                                   Inches(0.7), Inches(ty), Inches(8.3), Inches(0.85))
+    cardshape.fill.solid()
+    cardshape.fill.fore_color.rgb = RGBColor(0x1C, 0x1C, 0x26)
+    cardshape.line.color.rgb = PINK
+    cardshape.line.width = Pt(1.5)
+    add_text(s, Inches(0.95), Inches(ty + 0.18), Inches(1.6), Inches(0.55),
+             tag, size=18, bold=True, color=YELLOW)
+    add_text(s, Inches(2.5), Inches(ty + 0.18), Inches(6.4), Inches(0.55),
+             copy, size=17, color=PAPER)
+
+# QR code on the right
+s.shapes.add_picture("img/training/sandbox-qr.png",
+                     Inches(9.4), Inches(2.0), width=Inches(3.4))
+add_text(s, Inches(9.2), Inches(5.5), Inches(3.9), Inches(0.5),
+         "Scan to open", size=14, bold=True, color=YELLOW, align=PP_ALIGN.CENTER)
+add_text(s, Inches(9.2), Inches(5.85), Inches(3.9), Inches(0.5),
+         "babbled-wear/sandbox", size=15, bold=True, color=PAPER, align=PP_ALIGN.CENTER)
+add_text(s, Inches(0.7), Inches(6.7), Inches(12), Inches(0.5),
+         "Stuck? Raise your hand — I'll come help.",
+         size=16, color=PAPER)
 
 # ---------- Slide 11: Pitfalls ----------
 s = prs.slides.add_slide(BLANK)
