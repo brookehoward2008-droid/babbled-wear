@@ -1,0 +1,335 @@
+"""Render each slide to a PNG so they can be previewed inline."""
+from PIL import Image, ImageDraw, ImageFont
+import os
+
+W, H = 1600, 900
+OUT = "slide_previews"
+os.makedirs(OUT, exist_ok=True)
+
+PINK = (0xFF, 0x2D, 0x87)
+PURPLE = (0x7B, 0x2C, 0xBF)
+YELLOW = (0xFF, 0xD6, 0x0A)
+INK = (0x0F, 0x0F, 0x14)
+PAPER = (0xFA, 0xFA, 0xFA)
+DIM = (0xCC, 0xCC, 0xD0)
+CARD = (0x1C, 0x1C, 0x26)
+
+FONT_PATHS = [
+    "/usr/share/fonts/truetype/dejavu/DejaVuSans-Bold.ttf",
+    "/usr/share/fonts/truetype/dejavu/DejaVuSans.ttf",
+]
+BOLD_PATH = FONT_PATHS[0]
+REG_PATH = FONT_PATHS[1]
+
+def font(size, bold=False):
+    return ImageFont.truetype(BOLD_PATH if bold else REG_PATH, size)
+
+def wrap(draw, text, fnt, max_w):
+    words = text.split(" ")
+    lines, cur = [], ""
+    for w in words:
+        trial = (cur + " " + w).strip()
+        if draw.textlength(trial, font=fnt) <= max_w:
+            cur = trial
+        else:
+            if cur:
+                lines.append(cur)
+            cur = w
+    if cur:
+        lines.append(cur)
+    return lines
+
+def draw_wrapped(draw, x, y, text, fnt, color, max_w, line_gap=8):
+    for line in wrap(draw, text, fnt, max_w):
+        draw.text((x, y), line, font=fnt, fill=color)
+        bbox = draw.textbbox((0, 0), line, font=fnt)
+        y += (bbox[3] - bbox[1]) + line_gap
+    return y
+
+def base():
+    img = Image.new("RGB", (W, H), INK)
+    d = ImageDraw.Draw(img)
+    # gradient hint via two soft rectangles
+    overlay = Image.new("RGB", (W, H), INK)
+    od = ImageDraw.Draw(overlay)
+    # subtle accent blocks
+    od.ellipse((-200, -200, 700, 700), fill=(50, 20, 60))
+    od.ellipse((1000, 400, 1900, 1300), fill=(80, 30, 95))
+    img = Image.blend(img, overlay, 0.55)
+    d = ImageDraw.Draw(img)
+    # top + bottom bars
+    d.rectangle((0, 0, W, 14), fill=PINK)
+    d.rectangle((0, H - 8, W, H), fill=YELLOW)
+    return img, d
+
+def eyebrow(d, text):
+    d.text((90, 60), text.upper(), font=font(20, True), fill=YELLOW)
+
+def title(d, text, size=70, color=PAPER, y=120):
+    f = font(size, True)
+    return draw_wrapped(d, 90, y, text, f, color, W - 180, line_gap=6)
+
+def bullets(d, items, y=350, size=30):
+    f = font(size)
+    for it in items:
+        d.text((110, y), "•", font=font(size, True), fill=PINK)
+        bottom = draw_wrapped(d, 150, y, it, f, PAPER, W - 260, line_gap=4)
+        y = bottom + 12
+    return y
+
+def steps_render(d, items, y=300, size=30):
+    f = font(size)
+    fb = font(size + 2, True)
+    for i, it in enumerate(items, 1):
+        d.text((100, y), f"{i}.", font=fb, fill=PINK)
+        bottom = draw_wrapped(d, 170, y, it, f, PAPER, W - 280, line_gap=4)
+        y = bottom + 14
+    return y
+
+def card(d, x, y, w, h, heading, copy, border=PURPLE, hcolor=YELLOW):
+    d.rounded_rectangle((x, y, x + w, y + h), radius=18, fill=CARD, outline=border, width=2)
+    d.text((x + 30, y + 22), heading, font=font(26, True), fill=hcolor)
+    draw_wrapped(d, x + 30, y + 70, copy, font(20), PAPER, w - 60, line_gap=4)
+
+
+def paste_image(img, path, x, y, w=None, h=None):
+    pic = Image.open(path).convert("RGBA")
+    if w and not h:
+        ratio = w / pic.width
+        h = int(pic.height * ratio)
+    elif h and not w:
+        ratio = h / pic.height
+        w = int(pic.width * ratio)
+    pic = pic.resize((int(w), int(h)), Image.LANCZOS)
+    img.paste(pic, (int(x), int(y)), pic)
+
+slides = []
+
+# 1 Title
+img, d = base()
+eyebrow(d, "Training Presentation")
+title(d, "Save Images as a PDF", size=80, color=PINK, y=150)
+title(d, "— Using Print.", size=58, color=YELLOW, y=290)
+draw_wrapped(d, 90, 440, "A simple skill that works on almost any device, with no extra software to install.",
+             font(26), PAPER, 1000, line_gap=6)
+d.text((90, H - 70), "By Brooke Chauntel  ·  BaBBled.", font=font(18), fill=DIM)
+paste_image(img, "img/training/pdf-icon.png", 1130, 170, h=600)
+slides.append(img)
+
+# 2 Hook
+img, d = base()
+eyebrow(d, "Why this matters")
+title(d, "Ever needed to email a photo as a PDF?", size=58)
+bullets(d, [
+    "Job applications and résumé portfolios often require PDF.",
+    "Schools and instructors often only accept PDF submissions.",
+    "PDFs keep multiple images together in one tidy file.",
+    "PDFs print and view the same on every device.",
+], y=320, size=28)
+d.text((90, H - 80), "No Adobe. No paid app. Just the Print dialog you already have.",
+       font=font(22, True), fill=YELLOW)
+slides.append(img)
+
+# 3 Objectives
+img, d = base()
+eyebrow(d, "Today you will learn")
+title(d, "By the end of this training, you'll be able to…", size=48)
+bullets(d, [
+    "Open one or more images on your computer or phone.",
+    "Use the Print command to reach a hidden PDF option.",
+    "Choose \"Save as PDF\" as the destination.",
+    "Adjust orientation, size, and margins for a clean result.",
+    "Save the finished PDF where you can find it later.",
+], y=290, size=28)
+slides.append(img)
+
+# 4 What you need
+img, d = base()
+eyebrow(d, "Before we start")
+title(d, "What you need", size=72)
+cards = [
+    ("A device", "Windows PC, Mac, Chromebook, iPhone, or Android — all work."),
+    ("Your image(s)", "JPG, PNG, HEIC, or screenshots already saved on the device."),
+    ("A folder in mind", "Decide where you want the finished PDF to land (Desktop, Downloads, etc.)."),
+    ("A file name", "Something clear like 'brooke-portfolio.pdf', not 'untitled1.pdf'."),
+]
+positions = [(90, 320), (820, 320), (90, 590), (820, 590)]
+for (h_, c_), (x, y) in zip(cards, positions):
+    card(d, x, y, 690, 240, h_, c_)
+slides.append(img)
+
+# 5 Windows
+img, d = base()
+eyebrow(d, "Method 1 · Windows")
+title(d, "Save an image as PDF on Windows", size=44)
+
+# narrow the steps to the left half
+def steps_narrow(d, items, x=90, y=300, size=22, max_w=720):
+    f_ = font(size)
+    fb_ = font(size + 2, True)
+    for i, it in enumerate(items, 1):
+        d.text((x, y), f"{i}.", font=fb_, fill=PINK)
+        bottom = draw_wrapped(d, x + 50, y, it, f_, PAPER, max_w, line_gap=4)
+        y = bottom + 14
+    return y
+steps_narrow(d, [
+    "Open the image — double-click it so it opens in Photos.",
+    "Press Ctrl + P to open the Print dialog.",
+    "Under Printer, choose \"Microsoft Print to PDF.\"",
+    "Pick paper size and orientation, then click Print.",
+    "Name the file and choose where to save it. Done.",
+], y=300, size=22, max_w=720)
+paste_image(img, "img/training/windows-print-dialog.png", 870, 250, w=680)
+slides.append(img)
+
+# 6 Mac
+img, d = base()
+eyebrow(d, "Method 2 · Mac")
+title(d, "Save an image as PDF on a Mac", size=44)
+steps_narrow(d, [
+    "Open the image in Preview (double-click it).",
+    "Press Command + P to open Print.",
+    "In the bottom-left, click the PDF dropdown.",
+    "Choose \"Save as PDF.\"",
+    "Name it, pick a folder, click Save.",
+], y=300, size=22, max_w=720)
+paste_image(img, "img/training/mac-print-dialog.png", 870, 250, w=680)
+d.text((90, H - 70), "Bonus: in Finder, select images → right-click → Quick Actions → Create PDF.",
+       font=font(16, True), fill=YELLOW)
+slides.append(img)
+
+# 7 Phone
+img, d = base()
+eyebrow(d, "Method 3 · Phone")
+title(d, "Save an image as PDF on your phone", size=44)
+steps_narrow(d, [
+    "Open the image in your Photos or Gallery app.",
+    "Tap the Share button (the box with the arrow).",
+    "Scroll down and tap Print.",
+    "Pinch out with two fingers on the preview (iPhone) or tap the PDF icon (Android).",
+    "Tap Share / Save → Save to Files.",
+], y=290, size=20, max_w=900)
+paste_image(img, "img/training/iphone-share-sheet.png", 1130, 180, h=680)
+slides.append(img)
+
+# 8 Multiple
+img, d = base()
+eyebrow(d, "Pro move")
+title(d, "Putting multiple images in one PDF", size=44)
+paste_image(img, "img/training/multi-to-one.png", 280, 200, w=1040)
+bullets(d, [
+    "Windows: File Explorer → select images → right-click → Print → \"Microsoft Print to PDF.\"",
+    "Mac: Finder → select images → right-click → Quick Actions → Create PDF.",
+    "Phone: Photos → Select → Share → Print → pinch out.",
+], y=680, size=20)
+d.text((90, H - 30), "One PDF beats five attachments — every time.",
+       font=font(18, True), fill=YELLOW)
+slides.append(img)
+
+# 9 Shortcut — Export → PDF
+img, d = base()
+eyebrow(d, "Shortcut")
+title(d, "Skip the Print dialog with Export → PDF", size=44)
+draw_wrapped(d, 90, 240, "Some apps offer a one-step PDF export. Always check the File menu first.",
+             font(24), PAPER, W - 180, line_gap=4)
+
+shortcut_cards = [
+    ("Word · PowerPoint", "File → Export → Create PDF/XPS Document"),
+    ("Pages · Numbers · Keynote", "File → Export To → PDF…"),
+    ("Photos (Mac)", "File → Export → Save PDF to…"),
+    ("Google Docs · Slides · Sheets", "File → Download → PDF Document (.pdf)"),
+]
+positions = [(90, 340), (820, 340), (90, 580), (820, 580)]
+for (h_, c_), (x, y) in zip(shortcut_cards, positions):
+    d.rounded_rectangle((x, y, x + 690, y + 210), radius=18, fill=CARD,
+                        outline=YELLOW, width=2)
+    d.text((x + 30, y + 22), h_, font=font(22, True), fill=YELLOW)
+    draw_wrapped(d, x + 30, y + 75, c_, font(20), PAPER, 690 - 60, line_gap=4)
+
+d.text((90, H - 50), "If \"Export\" isn't there, fall back to the Print method we just learned.",
+       font=font(16, True), fill=YELLOW)
+slides.append(img)
+
+# 10 Now you try — interactive sandbox
+img, d = base()
+eyebrow(d, "Now you try · Interactive sandbox")
+title(d, "Practice on a real page, live in your browser.", size=40)
+draw_wrapped(d, 90, 230, "Scan the QR code or open the link below. Drop in any photos, then tap \"Save as PDF.\"",
+             font(22), PAPER, 1000, line_gap=4)
+
+tiers = [
+    ("EASY",   "Drop in 1 photo. Save it as 'first.pdf'."),
+    ("MEDIUM", "Drop in 3 photos. Save them as one combined PDF."),
+    ("BONUS",  "Change the title field, save. Open the PDF — does the title match?"),
+]
+for i, (tag, copy) in enumerate(tiers):
+    ty = 360 + i * 110
+    d.rounded_rectangle((90, ty, 1090, ty + 95), radius=14, fill=CARD,
+                        outline=PINK, width=2)
+    d.text((120, ty + 28), tag, font=font(22, True), fill=YELLOW)
+    draw_wrapped(d, 280, ty + 28, copy, font(20), PAPER, 780, line_gap=4)
+
+paste_image(img, "img/training/sandbox-qr.png", 1170, 250, w=380)
+d.text((1240, 660), "Scan to open", font=font(18, True), fill=YELLOW)
+d.text((1170, 700), "babbled-wear/sandbox", font=font(20, True), fill=PAPER)
+
+d.text((90, H - 60), "Stuck? Raise your hand — I'll come help.",
+       font=font(20), fill=PAPER)
+slides.append(img)
+
+# 11 Pitfalls
+img, d = base()
+eyebrow(d, "Watch out for")
+title(d, "Three things that trip people up", size=54)
+pitfalls = [
+    ("1. Wrong destination", "If your real printer is selected, it'll print on paper. Switch destination to Save as PDF."),
+    ("2. Cropped image", "If the photo is cut off, change orientation to Landscape or shrink margins to None."),
+    ("3. Lost file", "Note the folder before you click Save. Default is usually Documents or Downloads."),
+    ("Bonus: huge file size", "If the PDF is too big to email, lower print quality or use a smaller paper size."),
+]
+positions = [(90, 320), (820, 320), (90, 590), (820, 590)]
+for (h_, c_), (x, y) in zip(pitfalls, positions):
+    card(d, x, y, 690, 240, h_, c_, border=PINK, hcolor=PINK)
+slides.append(img)
+
+# 12 Recap
+img, d = base()
+eyebrow(d, "Quick recap")
+title(d, "The whole skill in five words:", size=56)
+title(d, "Open. Print. Save as PDF.", size=72, color=PINK, y=320)
+bullets(d, [
+    "Works on Windows, Mac, Chromebook, iPhone, and Android.",
+    "No software to download, no account to make.",
+    "Combine multiple images by selecting them all first.",
+    "Name your file something you can find later.",
+], y=520, size=24)
+slides.append(img)
+
+# 13 Thanks
+img, d = base()
+eyebrow(d, "Final tips")
+title(d, "Two habits that will save you time", size=54)
+bullets(d, [
+    "Make a folder called PDFs so you stop hunting for them.",
+    "Double-click the saved PDF to verify it looks right before you send it.",
+], y=320, size=28)
+d.text((90, 580), "Thank you for your attention — and for practicing along.",
+       font=font(36, True), fill=YELLOW)
+d.text((90, 660), "Questions? Ask away.", font=font(26), fill=PAPER)
+slides.append(img)
+
+# save individuals + combined contact sheet
+for i, s in enumerate(slides, 1):
+    s.save(f"{OUT}/slide-{i:02d}.png")
+
+cols, rows = 2, 7
+tw, th = W // 3, H // 3
+sheet = Image.new("RGB", (tw * cols + (cols+1)*20, th * rows + (rows+1)*20), (10, 10, 14))
+for i, s in enumerate(slides):
+    thumb = s.resize((tw, th), Image.LANCZOS)
+    r, c = divmod(i, cols)
+    x = 20 + c * (tw + 20)
+    y = 20 + r * (th + 20)
+    sheet.paste(thumb, (x, y))
+sheet.save(f"{OUT}/all-slides.png")
+print(f"Wrote {len(slides)} slide PNGs and contact sheet to {OUT}/")

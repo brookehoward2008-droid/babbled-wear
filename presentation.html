@@ -1,0 +1,411 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>How to Save Images as PDF Using Print — BaBBled.</title>
+<meta name="description" content="A 5–10 minute training presentation: how to save images as a PDF using the Print dialog. By Brooke Chauntel.">
+<style>
+:root {
+  --pink: #ff2d87;
+  --purple: #7b2cbf;
+  --yellow: #ffd60a;
+  --ink: #0f0f14;
+  --paper: #fafafa;
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html, body { height: 100%; }
+body {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Inter, system-ui, sans-serif;
+  background: var(--ink);
+  color: var(--paper);
+  -webkit-font-smoothing: antialiased;
+  overflow: hidden;
+}
+.bg {
+  position: fixed; inset: 0; z-index: -1;
+  background:
+    radial-gradient(circle at 20% 10%, rgba(255,45,135,0.35), transparent 40%),
+    radial-gradient(circle at 80% 60%, rgba(123,44,191,0.45), transparent 50%),
+    radial-gradient(circle at 50% 90%, rgba(255,214,10,0.15), transparent 40%),
+    var(--ink);
+}
+.deck {
+  position: relative;
+  width: 100vw;
+  height: 100vh;
+}
+.slide {
+  position: absolute;
+  inset: 0;
+  display: none;
+  flex-direction: column;
+  justify-content: center;
+  padding: 6vh 8vw;
+  overflow-y: auto;
+}
+.slide.active { display: flex; }
+.eyebrow {
+  font-size: 14px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--yellow);
+  margin-bottom: 16px;
+  opacity: 0.85;
+}
+h1.title {
+  font-size: clamp(40px, 7vw, 96px);
+  font-weight: 900;
+  line-height: 0.95;
+  letter-spacing: -0.04em;
+  background: linear-gradient(135deg, var(--pink), var(--purple) 60%, var(--yellow));
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  margin-bottom: 24px;
+}
+h2 {
+  font-size: clamp(32px, 5vw, 56px);
+  font-weight: 900;
+  line-height: 1.05;
+  letter-spacing: -0.02em;
+  margin-bottom: 28px;
+}
+h2 .accent { color: var(--pink); }
+h3 {
+  font-size: clamp(20px, 2.4vw, 28px);
+  font-weight: 700;
+  margin-bottom: 12px;
+  color: var(--yellow);
+}
+p, li {
+  font-size: clamp(18px, 2.1vw, 24px);
+  line-height: 1.5;
+  margin-bottom: 14px;
+  max-width: 1000px;
+}
+ul, ol { padding-left: 28px; }
+.lead {
+  font-size: clamp(20px, 2.6vw, 30px);
+  opacity: 0.95;
+  max-width: 1100px;
+}
+.byline {
+  margin-top: 32px;
+  font-size: 16px;
+  opacity: 0.7;
+}
+.steps {
+  list-style: none;
+  padding-left: 0;
+  counter-reset: step;
+}
+.steps li {
+  counter-increment: step;
+  position: relative;
+  padding-left: 64px;
+  margin-bottom: 20px;
+}
+.steps li::before {
+  content: counter(step);
+  position: absolute;
+  left: 0;
+  top: -2px;
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, var(--pink), var(--purple));
+  color: var(--paper);
+  font-weight: 900;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 20px;
+}
+.kbd {
+  display: inline-block;
+  padding: 2px 10px;
+  border-radius: 6px;
+  background: rgba(255,255,255,0.12);
+  border: 1px solid rgba(255,255,255,0.25);
+  font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+  font-size: 0.85em;
+  margin: 0 2px;
+}
+.tip {
+  border-left: 4px solid var(--yellow);
+  padding: 14px 20px;
+  margin-top: 18px;
+  background: rgba(255,214,10,0.08);
+  border-radius: 0 10px 10px 0;
+  max-width: 1000px;
+}
+.grid2 {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 28px;
+  margin-top: 12px;
+}
+.card {
+  background: rgba(255,255,255,0.06);
+  border: 1px solid rgba(255,255,255,0.12);
+  border-radius: 14px;
+  padding: 20px 22px;
+}
+.card h3 { margin-bottom: 8px; }
+.card p, .card li { font-size: clamp(16px, 1.6vw, 19px); margin-bottom: 8px; }
+
+.controls {
+  position: fixed;
+  bottom: 18px;
+  right: 22px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 13px;
+  opacity: 0.65;
+}
+.controls button {
+  background: rgba(255,255,255,0.08);
+  border: 1px solid rgba(255,255,255,0.2);
+  color: var(--paper);
+  border-radius: 8px;
+  padding: 6px 10px;
+  cursor: pointer;
+  font: inherit;
+}
+.controls button:hover { background: rgba(255,255,255,0.16); }
+.counter { min-width: 56px; text-align: center; }
+
+.progress {
+  position: fixed;
+  top: 0; left: 0;
+  height: 3px;
+  background: linear-gradient(90deg, var(--pink), var(--yellow));
+  width: 0%;
+  transition: width 0.3s ease;
+  z-index: 10;
+}
+
+@media print {
+  body { background: white; color: black; overflow: visible; }
+  .bg, .controls, .progress { display: none !important; }
+  .slide { display: flex !important; position: relative; page-break-after: always; height: 100vh; }
+  h1.title, h2 .accent { color: var(--purple); -webkit-text-fill-color: var(--purple); }
+}
+</style>
+</head>
+<body>
+<div class="bg"></div>
+<div class="progress" id="progress"></div>
+
+<div class="deck">
+
+  <!-- 1: Title -->
+  <section class="slide active">
+    <div class="eyebrow">Training Presentation</div>
+    <h1 class="title">Save Images<br>as a PDF —<br>Using Print.</h1>
+    <p class="lead">A simple skill that works on almost any device, with no extra software to install.</p>
+    <p class="byline">By Brooke Chauntel · BaBBled.</p>
+  </section>
+
+  <!-- 2: Hook / Why it matters -->
+  <section class="slide">
+    <div class="eyebrow">Why this matters</div>
+    <h2>Ever needed to <span class="accent">email a photo</span> as a PDF?</h2>
+    <ul>
+      <li>Job applications and résumé portfolios often require PDF.</li>
+      <li>Schools and instructors often only accept PDF submissions.</li>
+      <li>PDFs keep multiple images together in <em>one tidy file</em>.</li>
+      <li>PDFs print and view the same on every device.</li>
+    </ul>
+    <div class="tip">No Adobe. No paid app. Just the Print dialog you already have.</div>
+  </section>
+
+  <!-- 3: What you'll learn -->
+  <section class="slide">
+    <div class="eyebrow">Today you will learn</div>
+    <h2>By the end of this training, you'll be able to&hellip;</h2>
+    <ul>
+      <li>Open one or more images on your computer or phone.</li>
+      <li>Use the <strong>Print</strong> command to reach a hidden PDF option.</li>
+      <li>Choose <strong>"Save as PDF"</strong> as the destination.</li>
+      <li>Adjust orientation, size, and margins for a clean result.</li>
+      <li>Save the finished PDF where you can find it later.</li>
+    </ul>
+  </section>
+
+  <!-- 4: What you need -->
+  <section class="slide">
+    <div class="eyebrow">Before we start</div>
+    <h2>What you need</h2>
+    <div class="grid2">
+      <div class="card">
+        <h3>A device</h3>
+        <p>Windows PC, Mac, Chromebook, iPhone, or Android — all work.</p>
+      </div>
+      <div class="card">
+        <h3>Your image(s)</h3>
+        <p>JPG, PNG, HEIC, or screenshots already saved on the device.</p>
+      </div>
+      <div class="card">
+        <h3>A folder in mind</h3>
+        <p>Decide where you want the finished PDF to land (Desktop, Downloads, etc.).</p>
+      </div>
+      <div class="card">
+        <h3>A file name</h3>
+        <p>Something clear like <code>brooke-portfolio.pdf</code>, not <code>untitled1.pdf</code>.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 5: Steps - Windows -->
+  <section class="slide">
+    <div class="eyebrow">Method 1 · Windows</div>
+    <h2>Save an image as PDF on <span class="accent">Windows</span></h2>
+    <ol class="steps">
+      <li>Open the image — double-click it so it opens in <strong>Photos</strong>.</li>
+      <li>Press <span class="kbd">Ctrl</span> + <span class="kbd">P</span> to open the Print dialog.</li>
+      <li>Under <strong>Printer</strong>, choose <strong>"Microsoft Print to PDF"</strong>.</li>
+      <li>Pick paper size and orientation, then click <strong>Print</strong>.</li>
+      <li>Name the file and choose where to save it. Done.</li>
+    </ol>
+  </section>
+
+  <!-- 6: Steps - Mac -->
+  <section class="slide">
+    <div class="eyebrow">Method 2 · Mac</div>
+    <h2>Save an image as PDF on a <span class="accent">Mac</span></h2>
+    <ol class="steps">
+      <li>Open the image in <strong>Preview</strong> (double-click it).</li>
+      <li>Press <span class="kbd">⌘</span> + <span class="kbd">P</span> to open Print.</li>
+      <li>In the bottom-left, click the <strong>PDF</strong> dropdown.</li>
+      <li>Choose <strong>"Save as PDF"</strong>.</li>
+      <li>Name it, pick a folder, click <strong>Save</strong>.</li>
+    </ol>
+    <div class="tip">Bonus: select multiple images in Finder, right-click → <em>Quick Actions → Create PDF</em>.</div>
+  </section>
+
+  <!-- 7: Steps - Phone -->
+  <section class="slide">
+    <div class="eyebrow">Method 3 · Phone</div>
+    <h2>Save an image as PDF on your <span class="accent">phone</span></h2>
+    <ol class="steps">
+      <li>Open the image in your <strong>Photos</strong> or <strong>Gallery</strong> app.</li>
+      <li>Tap the <strong>Share</strong> button (the box with the arrow).</li>
+      <li>Scroll down and tap <strong>Print</strong>.</li>
+      <li>On the print preview, <em>pinch out</em> with two fingers (iPhone) or tap the <strong>PDF</strong> icon (Android).</li>
+      <li>Tap <strong>Share / Save</strong> → <strong>Save to Files</strong>.</li>
+    </ol>
+  </section>
+
+  <!-- 8: Combining multiple -->
+  <section class="slide">
+    <div class="eyebrow">Pro move</div>
+    <h2>Putting <span class="accent">multiple images</span> in one PDF</h2>
+    <ul>
+      <li><strong>Windows:</strong> select all images in File Explorer → right-click → <em>Print</em> → "Microsoft Print to PDF".</li>
+      <li><strong>Mac:</strong> select images in Finder → right-click → <em>Quick Actions → Create PDF</em>.</li>
+      <li><strong>Phone:</strong> in Photos, tap <em>Select</em>, choose your images, then <em>Share → Print → pinch out</em>.</li>
+    </ul>
+    <div class="tip">One PDF beats five attachments — every time.</div>
+  </section>
+
+  <!-- 9: Audience activity -->
+  <section class="slide">
+    <div class="eyebrow">Your turn</div>
+    <h2>Try it with me &mdash; <span class="accent">60 seconds</span>.</h2>
+    <ol>
+      <li>Pick any photo on your device.</li>
+      <li>Open it. Hit <strong>Print</strong>.</li>
+      <li>Choose <strong>"Save as PDF"</strong>.</li>
+      <li>Save it to your Desktop as <code>test.pdf</code>.</li>
+    </ol>
+    <p style="margin-top:18px;">Raise your hand if you got stuck — I'll come help.</p>
+  </section>
+
+  <!-- 10: Common pitfalls -->
+  <section class="slide">
+    <div class="eyebrow">Watch out for</div>
+    <h2>Three things that <span class="accent">trip people up</span></h2>
+    <div class="grid2">
+      <div class="card">
+        <h3>1. Wrong destination</h3>
+        <p>If your real printer is selected, it'll print on paper. Always switch the destination to <em>Save as PDF</em>.</p>
+      </div>
+      <div class="card">
+        <h3>2. Cropped image</h3>
+        <p>If the photo is cut off, change orientation to <em>Landscape</em> or shrink margins to <em>None</em>.</p>
+      </div>
+      <div class="card">
+        <h3>3. Lost file</h3>
+        <p>Note the folder before you click Save. Default is usually <em>Documents</em> or <em>Downloads</em>.</p>
+      </div>
+      <div class="card">
+        <h3>Bonus: huge file size</h3>
+        <p>If the PDF is too big to email, lower print quality to <em>Standard</em> or use a smaller paper size.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 11: Recap -->
+  <section class="slide">
+    <div class="eyebrow">Quick recap</div>
+    <h2>The whole skill in <span class="accent">five words</span>:</h2>
+    <p class="lead"><strong>Open. Print. Save as PDF.</strong></p>
+    <ul style="margin-top:24px;">
+      <li>Works on Windows, Mac, Chromebook, iPhone, and Android.</li>
+      <li>No software to download, no account to make.</li>
+      <li>Combine multiple images by selecting them all first.</li>
+      <li>Name your file something you can find later.</li>
+    </ul>
+  </section>
+
+  <!-- 12: Final tips + thanks -->
+  <section class="slide">
+    <div class="eyebrow">Final tips</div>
+    <h2>Two habits that will <span class="accent">save you time</span></h2>
+    <ul>
+      <li>Make a folder called <code>PDFs</code> so you stop hunting for them.</li>
+      <li>Double-click the saved PDF to verify it looks right <em>before</em> you send it.</li>
+    </ul>
+    <p class="lead" style="margin-top:32px;">Thank you for your attention — and for practicing along.</p>
+    <p class="byline">Questions? Ask away.</p>
+  </section>
+
+</div>
+
+<div class="controls">
+  <button id="prev" aria-label="Previous slide">&larr;</button>
+  <span class="counter" id="counter">1 / 12</span>
+  <button id="next" aria-label="Next slide">&rarr;</button>
+</div>
+
+<script>
+(function () {
+  const slides = document.querySelectorAll('.slide');
+  const counter = document.getElementById('counter');
+  const progress = document.getElementById('progress');
+  let i = 0;
+
+  function show(n) {
+    i = Math.max(0, Math.min(slides.length - 1, n));
+    slides.forEach((s, idx) => s.classList.toggle('active', idx === i));
+    counter.textContent = (i + 1) + ' / ' + slides.length;
+    progress.style.width = ((i + 1) / slides.length * 100) + '%';
+  }
+
+  document.getElementById('prev').addEventListener('click', () => show(i - 1));
+  document.getElementById('next').addEventListener('click', () => show(i + 1));
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'ArrowRight' || e.key === ' ' || e.key === 'PageDown') { e.preventDefault(); show(i + 1); }
+    else if (e.key === 'ArrowLeft' || e.key === 'PageUp') { e.preventDefault(); show(i - 1); }
+    else if (e.key === 'Home') { show(0); }
+    else if (e.key === 'End') { show(slides.length - 1); }
+  });
+
+  show(0);
+})();
+</script>
+</body>
+</html>
