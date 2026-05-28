@@ -209,3 +209,123 @@ The site links to but does not control these platforms:
 | Instagram | Photography and art portfolio |
 
 See `rb-listings.md` for Redbubble upload specifications (dimensions: 4667×6000 px @ 333 DPI).
+
+---
+
+## Writing Style Rules
+
+All copy written for this project — alt text, descriptions, commit messages, PR bodies, readme prose, and any content added to HTML pages — must follow these rules. These apply to AI-generated text in particular.
+
+### Banned Words (Never Use)
+
+**Verbs**
+
+| Banned | Use Instead |
+|---|---|
+| delve / delves | look at, examine, dig into |
+| leverage (as verb) | use |
+| foster | encourage, support, build |
+| harness | use |
+| facilitate | help, ease |
+| bolster | strengthen, support |
+| navigate (metaphorical) | handle, manage, deal with |
+| resonate | connect, ring true, appeal |
+| embark | start, begin, set out |
+| enhance | improve, boost |
+| elevate | raise, improve |
+| showcase / showcasing | show, display, present |
+| utilize | use |
+| optimize | improve, refine |
+| streamline | simplify, speed up, cut |
+| empower | enable, let |
+| revolutionize | change, transform, overhaul |
+| unlock | enable, open, reveal |
+| uncover | find, reveal, discover |
+
+**Adjectives**
+
+| Banned | Use Instead |
+|---|---|
+| robust (non-technical) | strong, solid, reliable |
+| seamless | smooth, easy, effortless |
+| crucial | important, key, critical |
+| vital | important, necessary |
+| pivotal | important, key |
+| multifaceted | complex — or name the actual parts |
+| nuanced | subtle, complex, layered |
+| comprehensive | full, complete — or delete |
+| groundbreaking | new, first, important |
+| transformative | major, significant, powerful |
+| cutting-edge | new, recent, advanced |
+| unprecedented | new, rare, never before seen |
+| vibrant | lively, energetic, bright |
+| dynamic | active, changing, energetic |
+| innovative | new, original, creative |
+
+**Nouns / Metaphors**
+
+| Banned | Use Instead |
+|---|---|
+| tapestry | mix, range, variety |
+| landscape (figurative) | field, world, industry, space |
+| realm | area, field, domain |
+| beacon | guide, signal, example |
+| testament | proof, evidence — or use "shows" |
+| journey (figurative) | process, path, experience |
+| synergy | cooperation, combined effect |
+| ecosystem (non-biological) | system, network, community |
+| paradigm / paradigm shift | model, pattern, shift, new approach |
+| cornerstone | foundation, core, key part |
+
+**Adverbs / Transitions**
+
+| Banned | Use Instead |
+|---|---|
+| furthermore | and, also — or just continue |
+| moreover | and, also — or just continue |
+| additionally | and, also — or just continue |
+| notably | especially, in particular |
+| undeniably | clearly, obviously |
+| ultimately | in the end, finally — or delete |
+| essentially | basically, really — or delete |
+| fundamentally | basically, at its core — or delete |
+
+### Banned Phrases (Delete on Sight)
+
+- "In today's fast-paced world…" → start with the actual point
+- "In the ever-evolving landscape of…" → name the field
+- "In conclusion…" → the reader knows it's the end
+- "In summary…" → don't restate
+- "Let's dive in." / "Let's explore…" → just start
+- "It's important to note that…" → state the thing
+- "It's worth noting that…" → state the thing
+- "Stands as a testament to…" → use "proves" or "shows"
+- "Serves as a reminder of…" → use "reminds us"
+- "Underscores the importance of…" → explain why it matters
+- "Speaks volumes about…" → use "shows" or "reveals"
+- "Game-changer for…" → name the specific change
+- "Unlock the power of…" → say what it does
+- "Great question!" / "Absolutely!" / "Certainly!" → delete
+- "I hope this helps!" → delete
+- "As of my last training update…" → state the fact or note the date
+
+### Copula Rule
+
+Prefer simple "is / are / has" over elaborate AI substitutes:
+
+| AI Prefers | Write Instead |
+|---|---|
+| serves as a | is a |
+| stands as a | is a |
+| represents a | is a |
+| boasts | has |
+| features | has |
+| showcases | has / shows |
+
+### General Principles
+
+- **Be specific** — numbers, names, and examples beat vague claims every time
+- **Vary sentence length** — mix short sentences with longer ones; fragments are fine
+- **Take positions** — state opinions and preferences directly rather than hedging
+- **Name actors** — say who did the thing, not "the implementation was completed"
+- **Prefer Anglo-Saxon words** — "use" over "utilize," "help" over "facilitate," "show" over "demonstrate," "before" over "prior to," "because" over "due to the fact that"
