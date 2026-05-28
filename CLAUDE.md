@@ -322,6 +322,30 @@ Prefer simple "is / are / has" over elaborate AI substitutes:
 | features | has |
 | showcases | has / shows |
 
+### Structural Patterns to Avoid
+
+- **Parallel lists** — even three items in a row is a pattern; vary grouping or use prose
+- **Concession rhythm** — "not X, but Y" constructions read as AI boilerplate; state the positive directly
+- **Identical paragraph arcs** — if every paragraph opens with a claim, adds evidence, and closes with a summary, break the pattern
+- **Stacked short sentences** — three or more short sentences in a row creates false crispness; combine related thoughts
+- **Em dashes** — avoid them; use commas, colons, or a new sentence instead
+- **"X is that…" wrappers** — "The problem is that…", "The issue is that…"; state the thing directly
+- **"Called" before nouns** — "a technique called X" → just "X"
+
+### Concrete Anchor Rule
+
+Every paragraph must contain at least one concrete anchor — a proper noun, a number, a direct quote, or a specific detail. Words like "many," "various," and "essentially" do not count as anchors. If a paragraph has no anchor, either add one or cut the paragraph.
+
+Do not invent milestones, narrate hidden mechanisms, or attribute things to unnamed sources. If you cannot verify a claim, attribute it explicitly, soften it to "appears to," or cut it.
+
+### Long-Form Structure
+
+Pick a through-line — thematic, perspective-led, or single-example-led — not a chronology or a catalog. Include at least one example, a cumulative sentence, a deliberate pause, or a callback. Don't rush to a conclusion.
+
+### Priority Order
+
+When rules conflict: **truth > user intent > genre conventions > style rules**.
+
 ### General Principles
 
 - **Be specific** — numbers, names, and examples beat vague claims every time
@@ -329,3 +353,4 @@ Prefer simple "is / are / has" over elaborate AI substitutes:
 - **Take positions** — state opinions and preferences directly rather than hedging
 - **Name actors** — say who did the thing, not "the implementation was completed"
 - **Prefer Anglo-Saxon words** — "use" over "utilize," "help" over "facilitate," "show" over "demonstrate," "before" over "prior to," "because" over "due to the fact that"
+- **Repeat the right word** — if the same word is the clearest choice twice, use it twice; don't rotate synonyms to seem varied
