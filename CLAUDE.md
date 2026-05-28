@@ -308,6 +308,13 @@ All copy written for this project — alt text, descriptions, commit messages, P
 - "Great question!" / "Absolutely!" / "Certainly!" → delete
 - "I hope this helps!" → delete
 - "As of my last training update…" → state the fact or note the date
+- "It's not X, it's Y" / "Not because X, but because Y" → state the positive directly
+- "Plays a key/pivotal role in…" → name the actual role
+- "Reflects broader…" / "Symbolizes…" → name the specific thing it reflects or means
+- "Found its feet" / "Found its identity" → name what actually changed
+- "What matters is…" / "The real issue is…" → state it without the preamble
+- "This is not just X, it is Y" → cut the frame, state Y
+- Paragraph-closing type definitions — "the kind of X where Y" → integrate into the paragraph or cut
 
 ### Copula Rule
 
@@ -321,6 +328,60 @@ Prefer simple "is / are / has" over elaborate AI substitutes:
 | boasts | has |
 | features | has |
 | showcases | has / shows |
+
+### Earned Specificity
+
+Specificity is good only when it is real. Do not use **specificity theater** — invented milestone names, suspiciously exact claims, synthetic quotes, or decorative details added only to avoid sounding generic.
+
+Be careful with **hidden-mechanism claims** — internal logic, unseen motives, back-end behavior, or claims about what something is "really" doing. If the reader could not observe it and you cannot verify it, do not state it as fact.
+
+**High-fragility facts** need source support: exact quotes, close paraphrases, public metrics, future claims, causal claims ("X caused Y," "X drove Y," "X proved Y"). If the evidence only supports sequence or correlation, say "coincided with," "appeared alongside," or "was followed by" — or cut the relationship.
+
+**Vague authority laundering** — "experts say," "observers note," "research suggests," "critics argue," "many believe" — name the source or delete it.
+
+### Do Not Fake Humanity
+
+Do not add typos, break grammar on purpose, inject slang, force informal asides, or manufacture sentence-length variation to seem less AI-written. Fake messiness is worse than clean prose. Vary sentence length because the thoughts call for it, not by formula.
+
+### Format Fit
+
+Match format to the medium:
+
+- **Chat, comments, replies** — running prose by default; lists only when the information is naturally list-like
+- **HTML pages, public-facing copy** — put the answer or next action early; keep alt text plain and descriptive
+- **Docs, specs, commit messages** — structure is expected; headings and bullets help scanning
+- **Long-form / articles** — pick an angle; do not default to chronology or one-paragraph-per-topic
+
+Do not add decorative formatting (bold, bullets, headers) to prose that does not need it.
+
+### Sentence Cohesion
+
+Do not split every related thought into its own sentence for crispness. When two thoughts are tightly connected, carry the relationship: use a comma, colon, conjunction, or semicolon.
+
+- Weak: "The term works. It names the pattern."
+- Better: "The term works: it names the pattern."
+- Weak: "The uncertainty is real. The confident register wrapping it is a default."
+- Better: "The uncertainty is real, but the confident register wrapping it is a default."
+
+A period should mark a real pause, shift, or emphasis — not just the place where an adjacent thought happened to arrive.
+
+### Catalog Prose and System-Tour Prose
+
+Do not give one paragraph to each milestone, topic bucket, or labeled category. If every paragraph can be summarized with a single label like "background," "mechanism," "impact," "response," paragraphs are probably just labeled boxes. Cross-wire them so each depends on the one before.
+
+Trace one consequence, one constraint, or one shift — and follow it through the piece rather than listing everything that exists.
+
+### Revision Checklist
+
+Before finalizing any substantial piece of writing:
+
+1. **Register** — does the format and structure match the medium?
+2. **Concrete anchors** — can you point to one anchor per paragraph?
+3. **Fact discipline** — pick the three most fragile claims (quotes, metrics, future events, causal claims); attribute, soften, or cut any you cannot verify
+4. **Regularity** — name the single most repeated pattern; if it appears 3+ times or dominates two paragraphs in a row, rewrite at least one instance
+5. **False crispness** — scan for neighboring short sentences whose thoughts belong together; combine at least one pair if found
+6. **Stance** — if the genre expects a visible opinion, can you state the writer's view in one sentence? If not, add it where it does work
+7. **Over-correction** — did you add fake-human moves (typos, slang, forced fragments) just to break a pattern?
 
 ### Structural Patterns to Avoid
 
