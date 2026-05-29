@@ -84,6 +84,33 @@ Short version:
 
 ---
 
+## Learning Filter
+
+No generated rule becomes durable unless it has:
+
+1. Direct evidence from actual repo files (not assumed from language patterns)
+2. At least three examples, or explicit human approval
+3. A confidence note (certain / likely / inferred)
+4. A conflict check against this file — resolve before adding
+
+If a rule fails any of these, mark it as provisional. Do not silently merge it into permanent guidance.
+
+---
+
+## Conflict Priority Ladder
+
+When instructions disagree, apply this order (top wins):
+
+1. **Safety and privacy** — no secrets, no force-pushes, no destructive commands without confirmation
+2. **User intent** — what the person asked for in this session
+3. **Repo truth** — what the actual files show (not assumed from framework conventions)
+4. **Agent instructions** — CLAUDE.md, AGENTS.md, copilot-instructions.md
+5. **Style and tone** — writing rules, naming conventions
+
+If a lower priority item conflicts with a higher one, flag the conflict before acting. Do not silently pick the path of least resistance.
+
+---
+
 ## Where to find more
 
 - `CLAUDE.md` — full AI reference: page internals, Python scripts, deploy, storefronts
