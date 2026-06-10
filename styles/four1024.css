@@ -1,0 +1,71 @@
+/* Page 4 — 1024px tablet styles (min-width: 481px) */
+
+article {
+    max-width: 960px;
+    margin: 0 auto;
+    padding: 30px 24px;
+}
+
+figure.top > img {
+    max-height: 480px;
+    object-fit: cover;
+    object-position: center;
+    width: 100%;
+}
+
+figcaption {
+    font-size: 13px;
+}
+
+/* Side-by-side: images left, specs right */
+.imgspec {
+    flex-direction: row;
+    align-items: flex-start;
+    gap: 24px;
+}
+
+.smallimg {
+    flex: 1 1 0;
+    min-width: 0;
+}
+
+/* Two tiny images side by side */
+.tiny {
+    flex-direction: row;
+    gap: 12px;
+}
+
+figure.interior,
+figure.gary {
+    flex: 1 1 0;
+    min-width: 0;
+}
+
+/* Specs panel */
+.spec {
+    flex: 1 1 0;
+    min-width: 0;
+    padding: 22px 20px;
+}
+
+h2#specs {
+    font-size: 26px;
+}
+
+.specp p {
+    font-size: 13px;
+}
+
+/* Nav */
+nav ul a li {
+    font-size: 14px;
+    padding: 13px 22px;
+}
+
+/* Footer */
+footer {
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px 28px;
+}

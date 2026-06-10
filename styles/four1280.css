@@ -1,0 +1,55 @@
+/* Page 4 — 1280px desktop styles (min-width: 1025px) */
+
+article {
+    max-width: 1200px;
+    padding: 44px 40px;
+}
+
+figure.top {
+    margin-bottom: 28px;
+}
+
+figure.top > img {
+    max-height: 560px;
+}
+
+figcaption {
+    font-size: 13.5px;
+    padding-top: 8px;
+}
+
+.imgspec {
+    gap: 36px;
+}
+
+/* Give specs panel slightly more room */
+.spec {
+    flex: 1.2 1 0;
+    padding: 28px 26px;
+}
+
+h2#specs {
+    font-size: 30px;
+    margin-bottom: 18px;
+}
+
+.specp p {
+    font-size: 13.5px;
+    padding: 6px 0;
+}
+
+/* Nav */
+nav ul a li {
+    font-size: 15px;
+    padding: 14px 28px;
+    letter-spacing: 0.14em;
+}
+
+/* Footer */
+footer {
+    padding: 24px 44px;
+}
+
+p.evcc {
+    font-size: 13px;
+}
