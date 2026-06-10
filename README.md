@@ -1,40 +1,64 @@
-# baBBled wear — website
+# BaBBled Wear — website
 
-Static holding page. Pushed to two GitHub repos so the same site lives at both URLs.
+Static art-studio site for BaBBled (Brooke Chauntel). Four self-contained HTML pages, no build step. Push to `main` and GitHub Actions deploys.
 
-## Files
-- `index.html` — the entire site, one self-contained file
-- `publish.bat` — double-click to push to GitHub (menu: personal / business / both)
+## Pages
 
-## Remotes
-| Remote | Repo | Published URL |
+| File | Purpose |
+|---|---|
+| `index.html` | Landing page — galleries, shop links, about |
+| `presentation.html` | 13-slide training deck (saving images as PDFs) |
+| `sandbox.html` | Interactive practice page for the training |
+| `status.html` | Live Gumroad reachability check |
+
+## Deploy
+
+### Automatic (primary)
+
+Push to `main` → `.github/workflows/main.yml` deploys to GitHub Pages at:
+
+```
+https://brookehoward2008-droid.github.io/babbled-wear/
+```
+
+### Manual — dual remote (Windows, secondary)
+
+`publish.bat` pushes to two remotes in one step:
+
+| Remote | Repo | URL |
 |---|---|---|
-| `personal` | `brookehoward2008/babbled-wear` | https://brookehoward2008.github.io/babbled-wear/ |
+| `droid` | `brookehoward2008-droid/babbled-wear` | https://brookehoward2008-droid.github.io/babbled-wear/ |
 | `business` | `babbledllc/babbledllc.github.io` | https://babbledllc.github.io/ |
 
-## Before the first publish
-One-time setup per account:
+## Python build scripts
 
-### Personal (brookehoward2008)
-1. Log in to GitHub as `brookehoward2008@gmail.com`
-2. Create a new empty repo named `babbled-wear` (Public, no README/gitignore)
-3. Run `publish.bat` → choose `1`
-4. On GitHub: repo **Settings** → **Pages** → Source = `main` branch, `/ (root)` → Save
-5. Site goes live in ~60 sec at https://brookehoward2008.github.io/babbled-wear/
+Run locally to regenerate training assets. Not part of CI.
 
-### Business (babbledllc)
-1. Create a GitHub account at `babbledllc@gmail.com` (if not already)
-2. Create a new empty repo named **exactly** `babbledllc.github.io` (the name = the URL)
-3. Run `publish.bat` → choose `2`
-4. Settings → Pages is auto-enabled for `<user>.github.io` repos
-5. Site goes live at https://babbledllc.github.io/
+```bash
+pip install Pillow python-pptx qrcode
 
-## Day-to-day
-Edit `index.html`, double-click `publish.bat`, pick `3` for both.
+python build_mockups.py    # img/training/*.png (5 mockups)
+python render_previews.py  # slide_previews/*.png (13 slides + contact sheet)
+python build_pptx.py       # Save-Images-as-PDF-Using-Print.pptx
+python build_qr.py         # img/training/sandbox-qr.png
+```
 
-## Swap out the canonical URL later
-When you buy `babbledwear.com`:
-- Point the domain's DNS to GitHub Pages (A records: 185.199.108.153 etc)
-- Settings → Pages → Custom domain: `babbledwear.com`
-- Add `CNAME` file with `babbledwear.com` inside
-- Redirect the personal repo to the canonical domain via a `<meta http-equiv="refresh">` tag
+Commit both the script changes and the regenerated output files.
+
+## First-time remote setup
+
+```bash
+git remote add droid   https://github.com/brookehoward2008-droid/babbled-wear.git
+git remote add business https://github.com/babbledllc/babbledllc.github.io.git
+```
+
+Or just use `publish.bat` on Windows — it handles both remotes.
+
+## Key conventions
+
+- No separate `.css` or `.js` files — all styles and scripts are inline in each HTML file
+- Use CSS variables: `--pink`, `--purple`, `--yellow`, `--ink`, `--paper`
+- Every `<img>` needs an `alt` attribute and `loading="lazy"` for gallery images
+- Generated output files (`slide_previews/`, `img/training/`, `.pptx`) are committed
+
+See `CLAUDE.md` for full AI-assistant reference and `AGENTS.md` for quick-start rules.
