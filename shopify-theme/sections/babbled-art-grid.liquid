@@ -1,0 +1,26 @@
+{% liquid
+  assign chosen_collection = collections[section.settings.collection]
+%}
+<section class="b-section">
+  <div class="b-page">
+    <div class="b-section__head">
+      <div><p class="b-eyebrow">{{ section.settings.eyebrow }}</p><h2>{{ section.settings.heading }}</h2></div>
+      {% if chosen_collection != blank %}<a href="{{ chosen_collection.url }}">View all →</a>{% endif %}
+    </div>
+    <div class="b-grid">
+      {% for product in chosen_collection.products limit: section.settings.limit %}
+        <a class="b-card" href="{{ product.url }}" data-reveal>
+          <div class="b-card__media">
+            {% if product.featured_image %}{{ product.featured_image | image_url: width: 1200 | image_tag: widths: '360,540,720,960,1200', sizes: '(min-width: 990px) 33vw, 100vw', loading: 'lazy', alt: product.featured_image.alt | default: product.title }}{% endif %}
+          </div>
+          <div class="b-card__meta"><div class="b-card__title">{{ product.title }}</div><div class="b-card__price">{{ product.price | money }}</div></div>
+        </a>
+      {% else %}
+        {% for i in (1..6) %}<article class="b-card"><div class="b-card__media">{{ 'product-' | append: i | placeholder_svg_tag }}</div><div class="b-card__meta"><div class="b-card__title">Original BaBBled artwork</div></div></article>{% endfor %}
+      {% endfor %}
+    </div>
+  </div>
+</section>
+{% schema %}
+{"name":"BaBBled art grid","settings":[{"type":"text","id":"eyebrow","label":"Eyebrow","default":"Original works"},{"type":"text","id":"heading","label":"Heading","default":"Bestselling prints"},{"type":"collection","id":"collection","label":"Collection"},{"type":"range","id":"limit","label":"Products","min":3,"max":12,"step":1,"default":6}],"presets":[{"name":"BaBBled art grid"}]}
+{% endschema %}
