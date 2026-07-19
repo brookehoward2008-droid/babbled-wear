@@ -1,0 +1,37 @@
+<section class="b-section">
+  <div class="b-page b-product">
+    <div class="b-product__gallery">
+      {% for media in product.media %}
+        {{ media | image_url: width: 1600 | image_tag: widths: '480,720,960,1200,1600', sizes: '(min-width: 990px) 58vw, 100vw', loading: forloop.first | default: false | ternary: 'eager', alt: media.alt | default: product.title }}
+      {% endfor %}
+    </div>
+    <div class="b-product__details">
+      <p class="b-eyebrow">Original artwork by Brooke Howard</p>
+      <h1>{{ product.title }}</h1>
+      <div class="b-product__price">{{ product.selected_or_first_available_variant.price | money }}</div>
+      <div class="rte">{{ product.description }}</div>
+      {% form 'product', product %}
+        {% unless product.has_only_default_variant %}
+          {% for option in product.options_with_values %}
+            <label for="Option-{{ section.id }}-{{ forloop.index0 }}">{{ option.name }}</label>
+            <select id="Option-{{ section.id }}-{{ forloop.index0 }}" name="options[{{ option.name | escape }}]">
+              {% for value in option.values %}<option value="{{ value | escape }}" {% if option.selected_value == value %}selected{% endif %}>{{ value }}</option>{% endfor %}
+            </select>
+          {% endfor %}
+        {% endunless %}
+        <input type="hidden" name="id" value="{{ product.selected_or_first_available_variant.id }}">
+        <label for="Quantity-{{ section.id }}">Quantity</label>
+        <input id="Quantity-{{ section.id }}" type="number" name="quantity" min="1" value="1">
+        <button class="b-button" type="submit" {% unless product.selected_or_first_available_variant.available %}disabled{% endunless %}>
+          {% if product.selected_or_first_available_variant.available %}Add to cart{% else %}Sold out{% endif %}
+        </button>
+      {% endform %}
+      <details open><summary>The story</summary><p>This piece begins with gesture, memory, and the pressure of what cannot be said plainly.</p></details>
+      <details><summary>Materials</summary><p>Museum-grade paper and archival pigment inks.</p></details>
+      <details><summary>Shipping & returns</summary><p>Made to order. Processing and delivery timing appears at checkout.</p></details>
+    </div>
+  </div>
+</section>
+{% schema %}
+{"name":"BaBBled main product","settings":[],"presets":[{"name":"BaBBled main product"}]}
+{% endschema %}
