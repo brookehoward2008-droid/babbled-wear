@@ -1,0 +1,17 @@
+<section class="b-section">
+  <div class="b-page b-story">
+    <div>
+      <p class="b-eyebrow">{{ section.settings.eyebrow }}</p>
+      <h2>{{ section.settings.heading }}</h2>
+      <div class="rte">{{ section.settings.copy }}</div>
+      {% if section.settings.link_label != blank and section.settings.link != blank %}<a class="b-button" href="{{ section.settings.link }}">{{ section.settings.link_label }}</a>{% endif %}
+    </div>
+    <div class="b-story__art">
+      {% if section.settings.image_1 %}{{ section.settings.image_1 | image_url: width: 1000 | image_tag: widths: '420,680,1000', loading: 'lazy', alt: section.settings.image_1.alt }}{% endif %}
+      {% if section.settings.image_2 %}{{ section.settings.image_2 | image_url: width: 1000 | image_tag: widths: '420,680,1000', loading: 'lazy', alt: section.settings.image_2.alt }}{% endif %}
+    </div>
+  </div>
+</section>
+{% schema %}
+{"name":"BaBBled artist story","settings":[{"type":"text","id":"eyebrow","label":"Eyebrow","default":"The artist"},{"type":"text","id":"heading","label":"Heading","default":"Made from gesture, memory, and emotional pressure."},{"type":"richtext","id":"copy","label":"Story","default":"<p>BaBBled LLC was born from a love of beauty, mystery, and the spaces in between. Each print begins as an original work by Brooke Howard.</p>"},{"type":"image_picker","id":"image_1","label":"Original artwork one"},{"type":"image_picker","id":"image_2","label":"Original artwork two"},{"type":"text","id":"link_label","label":"Link label","default":"Read the story"},{"type":"url","id":"link","label":"Link"}],"presets":[{"name":"BaBBled artist story"}]}
+{% endschema %}

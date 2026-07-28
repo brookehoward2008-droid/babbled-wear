@@ -1,0 +1,11 @@
+<section class="b-trust" aria-label="Store benefits">
+  {% for block in section.blocks %}
+    <div class="b-trust__item" {{ block.shopify_attributes }}>
+      <strong>{{ block.settings.title }}</strong><br>
+      <small>{{ block.settings.text }}</small>
+    </div>
+  {% endfor %}
+</section>
+{% schema %}
+{"name":"BaBBled trust strip","max_blocks":4,"blocks":[{"type":"benefit","name":"Benefit","settings":[{"type":"text","id":"title","label":"Title","default":"Museum-grade paper"},{"type":"text","id":"text","label":"Text","default":"Archival inks and premium stock"}]}],"presets":[{"name":"BaBBled trust strip","blocks":[{"type":"benefit","settings":{"title":"Made to order","text":"Printed just for you"}},{"type":"benefit","settings":{"title":"Premium quality","text":"Museum-grade paper"}},{"type":"benefit","settings":{"title":"Free shipping","text":"Orders over $75"}},{"type":"benefit","settings":{"title":"Secure checkout","text":"Safe and encrypted"}}]}]}
+{% endschema %}
