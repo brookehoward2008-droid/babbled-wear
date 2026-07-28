@@ -1,0 +1,13 @@
+services:
+  theme-dev:
+    build: .
+    ports:
+      - "9292:9292"
+    volumes:
+      - .:/app
+      - /app/node_modules
+    environment:
+      - SHOPIFY_CLI_THEME_TOKEN=${SHOPIFY_CLI_THEME_TOKEN}
+      - SHOPIFY_STORE=${SHOPIFY_STORE}
+    working_dir: /app
+    command: shopify theme dev --store=${SHOPIFY_STORE}
